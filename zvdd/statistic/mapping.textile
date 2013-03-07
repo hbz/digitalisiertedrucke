@@ -1,0 +1,528 @@
+|*field*|*frequency*|*content*|*mapping*|*status*|
+|980  .a|1130252|ignore ca. 100 different values, s. "980-a.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/980-a.textile  | ignore |
+|0248 .p|995816| collection, ca. 205 different values, ignore ddc: s. "0248-p.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/0248-p.textile | D: http://purl.org/dc/terms/isPartOf (Link to collectionURI/bnode) | done |
+|001|491271| Database-unique internal identifier. Could be used to create a URI? | Yes. Use as part of HTTP-URIs for both P and D. A nice way to encode different string IDs in RDF doesn't exist yet. Every "D" is an isbd:T1002, every "P" an isbd:T1010 | done |
+|8564 .u|491258| URL: Landing-page of the described E-Ressource | If target a pdf, serve file via HTTP accept header, otherwise link D to landing page with http://lobid.org/vocab/lobid#fulltextOnline | latter done |
+|533  .c|491033| a remark, that it's also about an E-ressource. Nothing new here - we know that because of "8564 .u" | ignore |
+|992  .d|491032| ignore. only one value "www.zvddd.de"| ignore |
+|992  .b|491032| ignore. collection, ca. 33 different values, s. "992-b.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/992-b.textile . Seems to be part of "0248 .p" | ignore |
+|992  .c|491032| ignore. (Is dealt with on Collection level.) URL of the website of the aggregator| ignore |
+|type|491032| ignore | ignore |
+|0248 .a|491032| ignore. oai-id. Most certainly an internal identifier | ignore  |
+|leader|491032| ignore | ignore |
+|594  .a|490907| document type. 4 different types, s. "594-a.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/594-a.textile | P & D: rdfs:type bibo:Article, bibo:Book, bibo:Series | done |
+|533  .b|490886| ignore ? provenance of the e-resource, already in the collection-set . Mostly cities, s. "553-b.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/553-b.textile | ignore |
+|533  .d|490885| creation date of the e-resource. sometimes only "year", sometimes "year-year" | D: dct:created | done |
+|533  .c|490883| publisher (name, location etc.) as a concatenated string | D: dc:publisher | done |
+|595  .a|490860| ignore. "Abrufkennzeichnen" . Only one value: "ldd"| - | ignore |
+|776 1.k|489524| ignore. is this true for e-resource AND origin? collection ? s. "77601-k.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/77601-k.textile , similar also to 773-t.textile and 7730-t.textile  | ? isPartOf | ignore|
+|24500.a|415095| Main title | http://purl.org/dc/terms/title | done |
+|773  .t|405992| concatenate with 773 .g , s. "773-t.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/773-t.textile Later we might also link to ZDB URI of the digitized series, e.g. http://ld.zdb-services.de/resource/2125514-3 | P: dct:bibliographicCitation| done |
+|773  .g|405956| see 773 .t| s. 773 t | done |
+|533  .f|312153| ignore. (Is dealt with on collection level.) publishers name for the collection or the project namei, collection ? ca. 27 different strings, s. "533-f.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/533-f.textile |  | ignore |
+|887 (OBJECT TYPE)|265894| 6 different values, s.: "887_OBJECT_TYPE.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/887_OBJECT_TYPE.textile .  | bibo:article , ? ... | ignore for now |
+|992  .a|220908| ignore. Internal ID of item in digitized collection (might be useful to generate direct links to file) | - | ignore |
+|1001 .a|185825| creator as string, see also "1001 .e" | P: dc:creator | done |
+|887 (MAB2:050)|172706| ignore. MAB2 "Datentraeger"| s. https://wiki1.hbz-nrw.de/display/SEM/Format+050 | ignore |
+|887 (MAB2:030)|172677|  ignore. MAB2 " VERARBEITUNGSTECHNISCHE ANGABEN"| - | ignore |
+|008|167905| ignore. Controllfield|- | ignore |
+|040  .c|165191| ignore. most probably ignore. s, "040-c.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/040-c.textile | - | ignore |
+|500  .a|137869| ignore. (too diverse) diverse notes, s. "500-a_smallExampleSet.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/500-a_smallExampleSet.textile | ? | ignore |
+|533  .7|118040| ignore. creation date of the e-rsource. Seems to be equivalent to "533  .d". Is just another notation. s, "533-7.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/533-7.textile | dct:created | ignore |
+|24500.b|111716| extension of the main title | dct:alternative   | done |
+|260  .c|101041| date of the (first?) printing. ca 1271 different values, s. "260-c.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/260-c.textile | P: dct:issued (sanitize first!) | done|
+|041  .a|92278| language code iso 639-1 (and some other notations, s. "041-a.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/041-a.textile . Seems to be save to erase all non-alphabeticals and split with length 3  <= if multiple language. If "en" and "de" stands alone, map them to iso639) | http://purl.org/dc/terms/language, and http://id.loc.gov/vocabulary/iso639-2/ for the objects | done |
+|005|89230| | | ignore|
+|24500.h|83446| ignore. Material. Mostly "computer file", "2 Musikdruck", rest rubbish, s. 24500-h.textile  | - | ignore |
+|270  .a|83381| ignore. second publisher, printer? has only one value : "Godesberger Allee 149, 53175 Bonn"| ? | ignore |
+|7001 .a|80014| | |
+|035  .a|77931| | |
+|035  .2|77931| | |
+|99001.d|73609| | |
+|99001.c|73609| | |
+|99001.b|73609| | |
+|99001.a|73609| | |
+|99001.f|73609| | |
+|99001.e|73609| | |
+|0167 .a|73166| | |
+|0167 .2|73166| | |
+|040  .d|73150| | |
+|24510.a|65177| | |
+|040  .a|56775| | |
+|516  .a|51886| some infos about the kind of the e-ressource, s. "516-a.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/516-a.textile | use pdf info to directly serve pdf via D URI, when asked for in Accept header | TODO |
+|24500.c|48226| creator of origin resource, same as  "1001 .a"? , sligtly different Notation| dc:creator | done |
+|7730 .t|46637| s. "773  .t" |  | done |
+|7730 .g|46637| he same as "773  .g". s. "7731-g_smallExampleSet.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/7730-g_smallExampleSet.textile | see "773  .g" | done |
+|887 (Publikation_Typ)|46637| 8 different types , s. "887-Publikation_Typ.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/887-Publikation_Typ.textile | s. "887-Publikation_Typ.textile":https://github.com/lobid/lodmill/blob/master/lodmill-rd/doc/zvdd/887-Publikation_Typ.textile for RDF properties| done |
+|300  .a|37469| | |
+|260  .a|36225| | |
+|260  .x|35553| | |
+|887 (MAB2:051)|34570| | |
+|773  .x|30206| | |
+|041 7.a|29007| | |
+|260  .b|28334| | |
+|041 7.2|26927| | |
+|7001 .e|26553| | |
+|084  .a|24169| | |
+|1001 .e|23010| role of contribution/creator , see also "1001 .a" | dc:creator, dc:contributor | ignore |
+|8564 .x|16778| | |
+|044  .a|14927| | |
+|044  .2|14686| | |
+|980  .b|13753| ? ignore . | - |
+|082  .a|13720| | |
+|2461 .a|12188| | |
+|887 (MAB2:026g)|11650| | |
+|8564 .z|11384| | |
+|2460 .a|11314| | |
+|250  .a|10208| | |
+|2460 .i|9264| | |
+|776 1.b|8859| | |
+|776 1.h|7618| | |
+|8564 .3|7103| | |
+|730  .a|6467| | |
+|538  .a|5949| | |
+|24504.a|5840| | |
+|993  .a|5606| | |
+|773  .w|5491| | |
+|65007.2|5380| | |
+|65007.a|5380| | |
+|65007.8|5194| | |
+|24504.c|4676| | |
+|24500.n|4659| | |
+|24500.y|4578| | |
+|887 (MAB2:580)|3704| | |
+|340  .a|3404| | |
+|24514.a|3292| | |
+|4900 .a|3085| | |
+|7001 .c|3036| | |
+|546  .a|2847| | |
+|24504.h|2614| | |
+|7102 .a|2446| | |
+|24500.p|2349| | |
+|653  .a|2253| | |
+|7001 .0|2151| | |
+|1001 .c|2001| | |
+|084  .2|1860| | |
+|1001 .0|1806| | |
+|65107.2|1419| | |
+|65107.8|1419| | |
+|65107.a|1419| | |
+|24504.b|1388| | |
+|65507.2|1352| | |
+|65507.a|1352| | |
+|65507.8|1187| | |
+|65007.0|1145| | |
+|9102 .a|1096| | |
+|4900 .v|1049| | |
+|4901 .a|1010| | |
+|4901 .v|989| | |
+|65507.0|987| | |
+|830 0.t|933| | |
+|830 0.v|933| | |
+|830 0.0|933| | |
+|1102 .a|911| | |
+|046  .a|908| | |
+|776 1.a|886| | |
+|776 1.w|884| | |
+|887 (MAB2:626)|881| | |
+|776  .k|777| | |
+|7860 .n|772| | |
+|041 7.h|754| | |
+|24504.y|702| | |
+|24504.n|702| | |
+|300  .b|697| | |
+|751  .a|671| | |
+|887 (MAB2:057)|587| | |
+|260  .f|573| | |
+|994  .a|572| | |
+|300  .c|559| | |
+|591  .a|532| | |
+|520  .a|528| | |
+|887 (MAB2:904a)|520| | |
+|260  .e|499| | |
+|830 0.y|481| | |
+|0410 .a|445| | |
+|533  .n|429| | |
+|040  .b|429| | |
+|003|429| | |
+|08214.2|429| | |
+|255  .a|422| | |
+|24630.a|417| | |
+|65107.0|414| | |
+|887 (BioLib resource file)|385| | |
+|852  .c|377| | |
+|050 4.a|376| | |
+|24510.c|355| | |
+|08214.a|352| | |
+|24510.h|349| | |
+|210 0.a|343| | |
+|24000.a|340| | |
+|520  .b|328| | |
+|1300 .a|320| | |
+|24504.p|295| | |
+|887 (MAB2:052)|284| | |
+|013  .a|269| | |
+|7300 .a|252| | |
+|24503.a|228| | |
+|7102 .e|210| | |
+|7102 .u|186| | |
+|245  .a|180| | |
+|245  .h|174| | |
+|64807.2|174| | |
+|64807.8|174| | |
+|64807.a|174| | |
+|24515.a|174| | |
+|24513.a|166| | |
+|64807.0|163| | |
+|887 (MAB2:909a)|148| | |
+|24310.a|147| | |
+|887 (MAB050)|147| | |
+|887 (MAB051)|147| | |
+|887 (MAB058)|147| | |
+|887 (MAB652a)|147| | |
+|502  .a|144| | |
+|60007.2|140| | |
+|60007.8|140| | |
+|60007.a|140| | |
+|250  .b|139| | |
+|63007.8|130| | |
+|63007.2|130| | |
+|63007.a|130| | |
+|020  .a|125| | |
+|022  .a|125| | |
+|24502.a|122| | |
+|100  .a|120| | |
+|60007.0|119| | |
+|520  .u|116| | |
+|7102 .0|116| | |
+|7102 .b|107| | |
+|24503.c|105| | |
+|24512.a|104| | |
+|24514.c|103| | |
+|24514.h|102| | |
+|1304 .a|102| | |
+|490  .a|100| | |
+|260  .g|99| | |
+|77508.i|87| | |
+|77508.a|87| | |
+|24503.b|87| | |
+|24503.y|81| | |
+|24503.n|81| | |
+|3620 .a|80| | |
+|700  .a|79| | |
+|866  .a|78| | |
+|24506.a|76| | |
+|1102 .b|75| | |
+|830 4.0|74| | |
+|830 4.v|74| | |
+|830 4.t|74| | |
+|5203 .a|73| | |
+|24505.a|72| | |
+|515  .a|71| | |
+|24502.n|69| | |
+|24502.y|69| | |
+|61007.8|68| | |
+|61007.2|68| | |
+|61007.a|68| | |
+|24505.c|60| | |
+|61007.0|59| | |
+|050  .a|59| | |
+|245  .b|57| | |
+|24506.b|57| | |
+|522  .a|53| | |
+|24600.a|53| | |
+|24505.h|52| | |
+|772  .a|48| | |
+|24506.c|48| | |
+|887 (MAB2:914a)|46| | |
+|24503.p|44| | |
+|772  .i|43| | |
+|1102 .0|43| | |
+|830 4.y|38| | |
+|24502.c|37| | |
+|77508.w|35| | |
+|513  .b|35| | |
+|24516.a|34| | |
+|887 (MAB2:036)|33| | |
+|555  .a|32| | |
+|780  .a|32| | |
+|780  .i|32| | |
+|300  .e|31| | |
+|24603.a|28| | |
+|785  .a|27| | |
+|751  .0|26| | |
+|751  .4|26| | |
+|24603.i|25| | |
+|24502.b|24| | |
+|63007.0|23| | |
+|785  .i|23| | |
+|362  .a|22| | |
+|245118.a|21| | |
+|887 (MAB2:919a)|19| | |
+|24510.b|19| | |
+|780  .w|18| | |
+|24004.a|18| | |
+|01674.2|17| | |
+|01674.a|17| | |
+|24505.b|17| | |
+|245  .c|16| | |
+|773  .d|16| | |
+|245120.a|14| | |
+|245125.a|14| | |
+|24601.a|14| | |
+|245123.a|13| | |
+|245115.a|12| | |
+|245116.a|12| | |
+|245117.a|12| | |
+|245122.a|11| | |
+|245119.a|11| | |
+|245121.a|11| | |
+|245129.a|11| | |
+|245128.a|10| | |
+|770  .i|10| | |
+|770  .a|10| | |
+|245126.a|9| | |
+|71021.b|9| | |
+|71021.a|9| | |
+|24003.a|9| | |
+|245018.a|9| | |
+|785  .w|9| | |
+|994  .b|9| | |
+|71021.0|9| | |
+|24503.h|9| | |
+|245131.a|9| | |
+|245029.a|8| | |
+|015  .a|8| | |
+|245136.a|8| | |
+|245033.a|8| | |
+|245124.a|7| | |
+|245133.a|7| | |
+|1302 .a|7| | |
+|24518.a|7| | |
+|24517.a|7| | |
+|24512.c|7| | |
+|24512.h|7| | |
+|24502.p|6| | |
+|245153.a|6| | |
+|245111.a|6| | |
+|501  .a|6| | |
+|245016.a|6| | |
+|245017.a|6| | |
+|245130.a|6| | |
+|245019.a|6| | |
+|24519.a|6| | |
+|245137.a|6| | |
+|245012.a|6| | |
+|24631.a|6| | |
+|887 (MAB2:554)|6| | |
+|245  .n|5| | |
+|245134.a|5| | |
+|245127.a|5| | |
+|245147.a|5| | |
+|245110.a|5| | |
+|245015.a|5| | |
+|650  .a|5| | |
+|245141.a|5| | |
+|24508.a|5| | |
+|595  .b|5| | |
+|245023.a|5| | |
+|245028.a|4| | |
+|245  .p|4| | |
+|773 1.w|4| | |
+|24002.a|4| | |
+|24613.a|4| | |
+|245114.a|4| | |
+|245113.a|4| | |
+|245166.a|4| | |
+|887 (MAB2:924a)|4| | |
+|245024.a|4| | |
+|245157.a|4| | |
+|245011.a|4| | |
+|245142.a|4| | |
+|245031.a|4| | |
+|7304 .a|4| | |
+|245139.a|4| | |
+|245159.a|4| | |
+|245135.a|4| | |
+|245155.a|4| | |
+|245132.a|3| | |
+|2451127.a|3| | |
+|245020.a|3| | |
+|245035.a|3| | |
+|245154.a|3| | |
+|245021.a|3| | |
+|245010.a|3| | |
+|245178.a|3| | |
+|245112.a|3| | |
+|245170.a|3| | |
+|245037.a|3| | |
+|245162.a|3| | |
+|245026.a|3| | |
+|245019.c|3| | |
+|245171.a|3| | |
+|245168.a|3| | |
+|7303 .a|3| | |
+|245013.a|3| | |
+|245012.c|3| | |
+|245160.a|3| | |
+|830 3.0|3| | |
+|245140.a|3| | |
+|830 3.t|3| | |
+|830 3.v|3| | |
+|245161.a|3| | |
+|773  .b|3| | |
+|245065.a|3| | |
+|24507.a|3| | |
+|245027.a|3| | |
+|245034.a|2| | |
+|245036.a|2| | |
+|2451112.a|2| | |
+|030  .a|2| | |
+|99314.a|2| | |
+|245151.a|2| | |
+|245022.a|2| | |
+|245075.a|2| | |
+|245035.b|2| | |
+|245044.a|2| | |
+|245039.c|2| | |
+|245042.a|2| | |
+|245039.b|2| | |
+|245039.a|2| | |
+|245042.c|2| | |
+|015  .2|2| | |
+|245021.b|2| | |
+|3621 .a|2| | |
+|245180.a|2| | |
+|245047.a|2| | |
+|245018.b|2| | |
+|2451128.a|2| | |
+|245181.a|2| | |
+|245198.a|2| | |
+|2451147.a|2| | |
+|24506.y|2| | |
+|245167.a|2| | |
+|7102 .c|2| | |
+|24506.n|2| | |
+|887 (MAB2:929a)|2| | |
+|245158.a|2| | |
+|246  .a|2| | |
+|245025.a|2| | |
+|245014.a|2| | |
+|245014.c|2| | |
+|245174.a|2| | |
+|245143.a|2| | |
+|245148.a|2| | |
+|9808 .a|2| | |
+|245165.a|2| | |
+|2451111.a|2| | |
+|245032.a|2| | |
+|245193.a|2| | |
+|245196.a|2| | |
+|24509.a|2| | |
+|24507.c|2| | |
+|245186.a|1| | |
+|2451323.a|1| | |
+|245036.b|1| | |
+|2451106.a|1| | |
+|24502.h|1| | |
+|245152.a|1| | |
+|245020.c|1| | |
+|245020.b|1| | |
+|245022.b|1| | |
+|245041.b|1| | |
+|245041.c|1| | |
+|245041.a|1| | |
+|245073.c|1| | |
+|245073.b|1| | |
+|245073.a|1| | |
+|245029.b|1| | |
+|2451161.a|1| | |
+|245029.c|1| | |
+|2451120.a|1| | |
+|245044.c|1| | |
+|245042.b|1| | |
+|245043.a|1| | |
+|245045.a|1| | |
+|2451105.a|1| | |
+|887 (MAB052)|1| | |
+|245082.c|1| | |
+|245185.a|1| | |
+|245082.a|1| | |
+|2451130.a|1| | |
+|245190.a|1| | |
+|245184.a|1| | |
+|110  .c|1| | |
+|245056.a|1| | |
+|110  .a|1| | |
+|2451108.a|1| | |
+|2451324.a|1| | |
+|245010.c|1| | |
+|2451132.a|1| | |
+|2451104.a|1| | |
+|020  .c|1| | |
+|700  .e|1| | |
+|245145.a|1| | |
+|508  .a|1| | |
+|24514.b|1| | |
+|0847 .2|1| | |
+|245111.h|1| | |
+|245016.c|1| | |
+|245047.c|1| | |
+|245015.c|1| | |
+|245150.a|1| | |
+|245017.c|1| | |
+|0847 .a|1| | |
+|2451115.a|1| | |
+|245037.b|1| | |
+|2451188.a|1| | |
+|245172.a|1| | |
+|245138.a|1| | |
+|787  .a|1| | |
+|2451146.a|1| | |
+|2451144.a|1| | |
+|787  .i|1| | |
+|245026.b|1| | |
+|245182.a|1| | |
+|24506.p|1| | |
+|245024.c|1| | |
+|24506.h|1| | |
+|245173.a|1| | |
+|245019.b|1| | |
+|245019.h|1| | |
+|24517.h|1| | |
+|245177.a|1| | |
+|7306 .a|1| | |
+|245175.a|1| | |
+|24517.c|1| | |
+|2451103.a|1| | |
+|2451145.a|1| | |
+|245059.a|1| | |
+|2451139.a|1| | |
+|2451176.a|1| | |
+|2451109.a|1| | |
+|2451141.a|1| | |
+|77208.a|1| | |
+|245014.b|1| | |
+|77208.i|1| | |
+|245011.h|1| | |
+|245011.b|1| | |
+|245011.c|1| | |
+|77208.w|1| | |
+|24513.b|1| | |
+|24513.c|1| | |
+|24505.y|1| | |
+|245066.a|1| | |
+|770  .w|1| | |
+|245156.a|1| | |
+|245033.b|1| | |
+|245030.a|1| | |
+|245030.c|1| | |
+|245032.c|1| | |
+|245032.b|1| | |
+|24505.p|1| | |
+|24505.n|1| | |
+|245092.a|1| | |
+|245092.b|1| | |
+|245092.c|1| | |
+|24509.b|1| | |
+|245027.b|1| | |
