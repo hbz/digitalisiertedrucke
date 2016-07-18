@@ -11,3 +11,8 @@ libraryDependencies ++= Seq(
   cache,
   javaWs
 )
+
+// Java project. Don't expect Scala IDE:
+EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
+// Use .class files instead of generated .scala files for views and routes:
+EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
