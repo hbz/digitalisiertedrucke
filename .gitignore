@@ -6,3 +6,4 @@ libexec
 logs
 .settings/org.eclipse.core.resources.prefs
 .settings/org.scala-ide.sdt.core.prefs
+test/stats.*.csv
