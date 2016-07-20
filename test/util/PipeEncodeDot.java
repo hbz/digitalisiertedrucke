@@ -1,7 +1,6 @@
-package util;
 /* Copyright 2013 Fabian Steeg, Licensed under the Eclipse Public License 1.0 */
 
-
+package util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +37,8 @@ public final class PipeEncodeDot extends AbstractGraphPipeEncoder {
 	@Override
 	public void startRecord(final String identifier) {
 		this.subject = null;
-		predicates = new ArrayList<String>();
-		objects = new ArrayList<String>();
+		predicates = new ArrayList<>();
+		objects = new ArrayList<>();
 	}
 
 	@Override

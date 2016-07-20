@@ -1,8 +1,7 @@
-package util;
 /* Copyright 2013 Fabian Steeg, Pascal Christoph.
  * Licensed under the Eclipse Public License 1.0 */
 
-
+package util;
 
 import java.io.StringWriter;
 import java.util.Stack;
@@ -76,7 +75,7 @@ public class PipeEncodeTriples extends AbstractGraphPipeEncoder {
 	@Override
 	public void startRecord(final String identifier) {
 		model = ModelFactory.createDefaultModel();
-		resources = new Stack<Resource>();
+		resources = new Stack<>();
 		if (!fixSubject) {
 			subject = DUMMY_SUBJECT;
 		}

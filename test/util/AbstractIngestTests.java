@@ -1,13 +1,11 @@
-package util;
 /* Copyright 2013 Fabian Steeg. Licensed under the Eclipse Public License 1.0 */
 
-
+package util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

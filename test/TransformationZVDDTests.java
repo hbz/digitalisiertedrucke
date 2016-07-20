@@ -1,7 +1,5 @@
 /* Copyright 2013 Fabian Steeg. Licensed under the Eclipse Public License 1.0 */
 
-
-
 import org.culturegraph.mf.test.TestSuite;
 import org.culturegraph.mf.test.TestSuite.TestDefinitions;
 import org.junit.runner.RunWith;
