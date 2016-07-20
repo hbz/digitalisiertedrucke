@@ -3,6 +3,7 @@
 
 import java.io.IOException;
 
+import org.culturegraph.mf.stream.converter.JsonEncoder;
 import org.culturegraph.mf.stream.reader.MarcXmlReader;
 import org.junit.Test;
 
@@ -23,6 +24,15 @@ public final class ZvddMarcIngestTest extends AbstractIngestTests {
 	public ZvddMarcIngestTest() {
 		super("test/zvdd-collections-test-set.xml", "morph_zvdd-collection2ld.xml",
 				"zvdd_morph-stats.xml", new MarcXmlReader());
+	}
+
+	@Test
+	public void testJson() { // NOPMD asserts are done in the superclass
+		JsonEncoder encodeJson = new JsonEncoder();
+		encodeJson.setPrettyPrinting(true);
+		super.triples("test/zvdd-title-digitalisation_test.json",
+				"test/zvdd-title-digitalisation_out.json", encodeJson);
+
 	}
 
 	@Test

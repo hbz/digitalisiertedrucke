@@ -1,0 +1,17 @@
+{
+  "http://purl.org/dc/terms/isPartOf" : "http://www.zvdd.de/",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://purl.org/dc/dcmitype/Collection",
+  "http://purl.org/dc/terms/title" : "Feldzeitungen des 1. Weltkriegs",
+  "http://purl.org/dc/terms/temporal" : "1914-1918",
+  "http://purl.org/dc/terms/extent" : "18 Titel, 39 Bände, 35.038 Seiten",
+  "http://purl.org/dc/elements/1.1/description" : "Die Universitätsbibliothek Heidelberg hat mit\n\t\t\t\t\t\t\t\tUnterstützung der Landesarchivdirektion Baden-Württemberg 19 ihrer Feldzeitungen\n\t\t\t\t\t\t\t\taus der Zeit des Ersten Weltkrieges digitalisiert und mikroverfilmt. Die ersten\n\t\t\t\t\t\t\t\t„Schützengrabenzeitungen“ entstanden vi elfach auf Initiative von Soldaten und\n\t\t\t\t\t\t\t\tohne staatliche Aufsicht. Die Zeitungen boten Ablenkung vom oft monotonen Alltag\n\t\t\t\t\t\t\t\tan der Front und waren zugleich ein Forum für die Sorgen und Nöte der einfachen\n\t\t\t\t\t\t\t\tSoldaten: Sehnsucht nach der Heimat, Versorgungsengpässe, ungerechte Behan dlung\n\t\t\t\t\t\t\t\tdurch Vorgesetzte. Um dem interessierten Benutzer online einen möglichst\n\t\t\t\t\t\t\t\tlückenlosen Bestand anbieten zu können, wurden vorhandene Lücken im Printbestand\n\t\t\t\t\t\t\t\tdurch Digitalisierung von Exemplaren aus anderen Bibliotheken geschlossen.",
+  "http://xmlns.com/foaf/0.1/term_isPrimaryTopicOf" : "http://www.clio-online.de/Web=17770",
+  "http://purl.org/dc/terms/spatial" : "Deutschland, Frankreich, Belgien",
+  "http://purl.org/dc/terms/language" : "http://id.loc.gov/vocabulary/iso639-1/de",
+  "http://purl.org/dc/terms/language" : "http://id.loc.gov/vocabulary/iso639-1/fr",
+  "http://purl.org/dc/elements/1.1/creator" : "Universitätsbibliothek",
+  "http://purl.org/dc/terms/creator" : "http://www.ub.uni-heidelberg.de/",
+  "~rdf:subject" : "collection:feldzeitungen.ub.hd.de",
+  "http://purl.org/dc/elements/1.1/subject" : "collection:feldzeitungen.ub.hd.de",
+  "http://xmlns.com/foaf/0.1/term_homepage" : "http://feldzeitungen.uni-hd.de"
+}

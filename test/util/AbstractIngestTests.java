@@ -68,7 +68,6 @@ public abstract class AbstractIngestTests {
 		File testFile;
 		testFile = new File(testFileName);
 		compareFilesDefaultingBNodes(generatedFile, testFile);
-		generatedFile.deleteOnExit();
 	}
 
 	private static SortedSet<String> linesInFileToSetDefaultingBNodes(
