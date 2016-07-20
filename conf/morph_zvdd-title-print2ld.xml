@@ -3,10 +3,11 @@
 		version="1">
 		<rules>
 				<!-- General attributes for each record: -->
-				<data source="001." name="~rdf:subject">
+				<data source="001" name="id"/>
+				<data source="001" name="~rdf:subject">
 						<regexp match="(.*)" format="resource:P${1}"/>
 				</data>
-				<data source="001." name="http://purl.org/dc/terms/hasFormat">
+				<data source="001" name="http://purl.org/dc/terms/hasFormat">
 						<regexp match="(.*)" format="resource:D${1}"/>
 				</data>
 				<data source="001" name="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">
