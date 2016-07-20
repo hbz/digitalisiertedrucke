@@ -1,17 +1,18 @@
 /* Copyright 2013 Fabian Steeg. Licensed under the Eclipse Public License 1.0 */
 
-
-
 import java.io.IOException;
 
 import org.culturegraph.mf.stream.reader.MarcXmlReader;
 import org.junit.Test;
 
+import util.AbstractIngestTests;
+import util.PipeEncodeTriples;
+
 /**
  * Ingest the ZVDD MARC-XML export.
  * 
- * Run as Java application to use metaflow definitions; run as JUnit test to
- * print some stats, transform the fields, and output results as N-Triples.
+ * Run as JUnit test to print some stats, transform the fields, 
+ * and output results as N-Triples.
  * 
  * @author Fabian Steeg (fsteeg)
  */
@@ -19,15 +20,15 @@ import org.junit.Test;
 public final class ZvddMarcIngestTest extends AbstractIngestTests {
 
 	public ZvddMarcIngestTest() {
-		super("conf/zvdd/visualization/zvdd-collections-test-set.xml",
+		super("test/zvdd-collections-test-set.xml",
 				"morph_zvdd-collection2ld.xml", "zvdd_morph-stats.xml",
 				new MarcXmlReader());
 	}
 
 	@Test
 	public void testTriples() { // NOPMD asserts are done in the superclass
-		super.triples("zvdd-title-digitalisation_test.nt",
-				"zvdd-title-digitalisation.nt", new PipeEncodeTriples());
+		super.triples("test/zvdd-title-digitalisation_test.nt",
+				"test/zvdd-title-digitalisation_out.nt", new PipeEncodeTriples());
 
 	}
 

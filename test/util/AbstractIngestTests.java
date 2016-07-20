@@ -1,3 +1,4 @@
+package util;
 /* Copyright 2013 Fabian Steeg. Licensed under the Eclipse Public License 1.0 */
 
 
@@ -57,7 +58,7 @@ public abstract class AbstractIngestTests {
 	/**
 	 * Tests if the generated triples equals the triples in the test file
 	 * 
-	 * @param testF<ileName The test file name, residing in the resource folder
+	 * @param testFileName The test file name, residing in the resource folder
 	 * @param generatedFileName The to be generated file name .
 	 * @param dsp A DefaultStreampipe
 	 */
@@ -67,13 +68,8 @@ public abstract class AbstractIngestTests {
 		final File generatedFile = new File(generatedFileName);
 		process(dsp, generatedFile);
 		File testFile;
-		try {
-			testFile = new File(Thread.currentThread().getContextClassLoader()
-					.getResource(testFileName).toURI());
-			compareFilesDefaultingBNodes(generatedFile, testFile);
-		} catch (URISyntaxException e) {
-			LOG.error(e.getMessage(), e);
-		}
+		testFile = new File(testFileName);
+		compareFilesDefaultingBNodes(generatedFile, testFile);
 		generatedFile.deleteOnExit();
 	}
 

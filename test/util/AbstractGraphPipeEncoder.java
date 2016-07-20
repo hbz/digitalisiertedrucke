@@ -1,3 +1,4 @@
+package util;
 /* Copyright 2013 Fabian Steeg, Pascal Christoph.
  * Licensed under the Eclipse Public License 1.0 */
 

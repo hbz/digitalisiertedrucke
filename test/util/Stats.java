@@ -1,3 +1,4 @@
+package util;
 
 
 import java.io.File;
@@ -44,8 +45,7 @@ public final class Stats extends DefaultStreamReceiver {
 	 * Default constructor
 	 */
 	public Stats() {
-		this.filename =
-				"test/stats." + (Calendar.getInstance().getTimeInMillis() / 1000) + ".csv";
+		this.filename = "test/stats.csv";
 	}
 
 	/**
