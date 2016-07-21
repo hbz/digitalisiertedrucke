@@ -67,8 +67,9 @@ public class HomeController extends Controller {
 	 * @return Result
 	 */
 	public Result index() {
-		return ok(index.render(CONFIG.getString("index.http_port"),
-				search("collection"), search("title-print"), search("title-digital")));
+		return ok(index.render(request().host().split(":")[0],
+				CONFIG.getString("index.http_port"), search("collection"),
+				search("title-print"), search("title-digital")));
 	}
 
 	private String search(String type) {
