@@ -1,0 +1,40 @@
+{
+	"settings": {
+		"index": {
+			"max_result_window": "25000",
+			"analysis": {
+				"analyzer": {
+					"default": {
+						"type" : "custom",
+						"tokenizer" : "standard",
+						"filter": ["lowercase", "german_filter"]
+					},
+					"id": {
+						"tokenizer": "keyword",
+						"filter": "lowercase"
+					}
+				}, 
+				"filter" : {
+					"german_filter" : {
+						"type" : "snowball",
+						"language" : "German2"
+					}
+				}
+			}
+		}
+	}, 
+	"mappings": {
+		"collection" : {
+			"properties" : {
+			}
+		},
+		"title-print" : {
+			"properties" : {
+			}
+		},
+		"title-digital" : {
+			"properties" : {
+			}
+		}
+	}
+}

@@ -1,20 +1,23 @@
-@*
- * This template takes a single argument, a String containing a
- * message to display.
- *@
-@(message: String)
+@(port: String, collections: String, print: String, digital: String)
 
-@*
- * Call the `main` template with two arguments. The first
- * argument is a `String` with the title of the page, the second
- * argument is an `Html` object containing the body of the page.
- *@
-@main("Welcome to Play") {
+@main("digitalisiertedrucke") {
 
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    @play20.welcome(message, style = "Java")
+<h1>Collections:</h1>
+
+@defining(s"http://localhost:$port/digitalisiertedrucke/collection/_search?q=*") { url => <a href="@url">@url</a> }
+
+<pre><code>@collections</code></pre>
+
+<h1>Print:</h1>
+
+@defining(s"http://localhost:$port/digitalisiertedrucke/title-print/_search?q=*") { url => <a href="@url">@url</a> }
+
+<pre><code>@print</code></pre>
+
+<h1>Digital:</h1>
+
+@defining(s"http://localhost:$port/digitalisiertedrucke/title-digital/_search?q=*") { url => <a href="@url">@url</a> }
+
+<pre><code>@digital</code></pre>
 
 }

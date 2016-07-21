@@ -8,3 +8,4 @@ logs
 .settings/org.scala-ide.sdt.core.prefs
 test/stats.csv
 test/*_out.*
+data
