@@ -38,8 +38,27 @@ Metadata transformations are implemented with "Metafacture":https://github.com/c
 
 h1. Web app
 
-To start the web app, run:
+h2. Development mode
+
+To start the web app in development mode, run:
 
 @~/activator-1.3.10-minimal/bin/activator run@
 
 And visit "http://localhost:9000":http://localhost:9000
+
+h2. Production mode
+
+Customize @conf/application.conf@, set:
+
+* @play.crypto.secret@ to a custom value
+* @index.location@ to the absolute path of the deployed repo, e.g. @"/home/sol/git/digitalisiertedrucke"@
+
+Then start the app in production mode, with the port to run on:
+
+@~/activator-1.3.10-minimal/bin/activator "start 6000"@
+
+h1. Eclipse setup
+
+To generate an Eclipse project (import in Eclipse as existing project), run:
+
+@~/activator-1.3.10-minimal/bin/activator compile "eclipse with-source=true"@
