@@ -80,8 +80,9 @@ public class HomeController extends Controller {
 				.setTypes(type).setSearchType(SearchType.QUERY_THEN_FETCH)
 				.setQuery(simpleQuery).setSize(1);
 		SearchResponse searchResponse = searchRequest.execute().actionGet();
-		return Json.prettyPrint(
-				Json.parse(searchResponse.getHits().getAt(0).getSourceAsString()));
+		return searchResponse.getHits().totalHits() == 0 ? searchResponse.toString()
+				: Json.prettyPrint(
+						Json.parse(searchResponse.getHits().getAt(0).getSourceAsString()));
 	}
 
 }
