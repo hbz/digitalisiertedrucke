@@ -52,6 +52,7 @@ Customize @conf/application.conf@, set:
 
 * @play.crypto.secret@ to a custom value
 * @index.location@ to the absolute path of the deployed repo, e.g. @"/home/sol/git/digitalisiertedrucke"@
+* @index.host@ to the host name of the deployment machine, e.g. @"quaoar1.hbz-nrw.de"@
 
 Then start the app in production mode, with the port to run on:
 

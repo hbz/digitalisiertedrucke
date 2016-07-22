@@ -37,6 +37,7 @@ public class HomeController extends Controller {
 
 	private String indexName = CONFIG.getString("index.name");
 	private Settings settings = Settings.settingsBuilder()
+			.put("network.host", CONFIG.getString("index.host"))
 			.put("path.home", CONFIG.getString("index.location"))
 			.put("http.port", CONFIG.getString("index.http_port"))
 			.put("transport.tcp.port", CONFIG.getString("index.tcp_port")).build();
