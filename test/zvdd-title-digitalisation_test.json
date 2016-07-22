@@ -1,5 +1,4 @@
 {
-  "id" : "46713",
   "http://purl.org/dc/terms/isPartOf" : "http://www.zvdd.de/",
   "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : "http://purl.org/dc/dcmitype/Collection",
   "http://purl.org/dc/terms/title" : "Feldzeitungen des 1. Weltkriegs",
@@ -12,6 +11,7 @@
   "http://purl.org/dc/terms/language" : "http://id.loc.gov/vocabulary/iso639-1/fr",
   "http://purl.org/dc/elements/1.1/creator" : "Universitätsbibliothek",
   "http://purl.org/dc/terms/creator" : "http://www.ub.uni-heidelberg.de/",
+  "id" : "collection:feldzeitungen.ub.hd.de",
   "~rdf:subject" : "collection:feldzeitungen.ub.hd.de",
   "http://purl.org/dc/elements/1.1/subject" : "collection:feldzeitungen.ub.hd.de",
   "http://xmlns.com/foaf/0.1/term_homepage" : "http://feldzeitungen.uni-hd.de"

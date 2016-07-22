@@ -3,7 +3,9 @@
 	version="1">
 	<rules>
 		<!-- General attributes for each record: -->
-		<data source="001" name="id"/>
+		<data source="992  .a" name="id">
+			<regexp match="collection.*"/>
+		</data>
 		<data source="001" name="http://purl.org/dc/terms/isPartOf"> <!-- the same as in zvdd-title -->
 			<constant value="http://www.zvdd.de/"/>
 		</data>
