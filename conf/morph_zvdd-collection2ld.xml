@@ -4,10 +4,10 @@
 	<rules>
 		<!-- General attributes for each record: -->
 		<data source="992  .a" name="id">
-			<regexp match="collection.*"/>
+			<regexp match="collection:(.*\..*)" format="http://digitalisiertedrucke.de/collections/${1}"/><!-- some sanitizing -->
 		</data>
 		<data source="001" name="isPartOf"> <!-- the same as in zvdd-title -->
-			<constant value="http://www.zvdd.de/"/>
+			<constant value="http://digitalisiertedrucke.de/collections"/>
 		</data>
 		<data source="001" name="type">
 			<constant value="http://purl.org/dc/dcmitype/Collection"/>
@@ -70,9 +70,6 @@
 				<regexp match="cooperation" format=""/>
 			</data>
 		</combine>
-		<data source="992  .a" name="subject">
-			<regexp match="(.*:.*\..*)" format="${1}"/><!-- some sanitizing -->
-		</data>
 		<!-- Leave all other fields untransformed: <data source="_else"/> -->
 	</rules>
 </metamorph>

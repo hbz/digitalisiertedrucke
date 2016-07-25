@@ -1,5 +1,5 @@
 {
-  "isPartOf" : "http://www.zvdd.de/",
+  "isPartOf" : "http://digitalisiertedrucke.de/collections",
   "type" : "http://purl.org/dc/dcmitype/Collection",
   "title" : "Feldzeitungen des 1. Weltkriegs",
   "temporal" : "1914-1918",
@@ -11,7 +11,6 @@
   "language" : "http://id.loc.gov/vocabulary/iso639-1/fr",
   "creator" : "Universitätsbibliothek",
   "creator" : "http://www.ub.uni-heidelberg.de/",
-  "id" : "collection:feldzeitungen.ub.hd.de",
-  "subject" : "collection:feldzeitungen.ub.hd.de",
+  "id" : "http://digitalisiertedrucke.de/collections/feldzeitungen.ub.hd.de",
   "homepage" : "http://feldzeitungen.uni-hd.de"
 }

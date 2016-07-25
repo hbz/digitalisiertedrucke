@@ -3,9 +3,11 @@
 		version="1">
 		<rules>
 				<!-- General attributes for each record: -->
-				<data source="001" name="id"/>
+				<data source="001" name="id">
+					<regexp match="(.*)" format="http://digitalisiertedrucke.de/resources/D${0}"/>
+				</data>
 				<data source="001" name="isFormatOf">
-						<regexp match=".*" format="resource:P${0}"/>
+						<regexp match=".*" format="http://digitalisiertedrucke.de/resources/P${0}"/>
 				</data>
 				<data source="001" name="type">
 						<constant value="http://purl.org/vocab/frbr/core#Manifestation"/>
@@ -20,21 +22,21 @@
 						format="${1}"/> </data> -->
 				<data source="0248 .p" name="isPartOf">
 						<equals string="collection:exilzeitschriften.d-nb.f.de"/>
-						<constant value="collection:exil-zeitschriften.ddb.f.de"/>
+						<constant value="http://digitalisiertedrucke.de/collections/exil-zeitschriften.ddb.f.de"/>
 				</data>
 				<data source="0248 .p" name="isPartOf">
 						<equals string="collection:juedische_periodika.d-nb.f.de"/>
-						<constant value="collection:juedische_periodika.ddb.f.de"/>
+						<constant value="http://digitalisiertedrucke.de/collections/juedische_periodika.ddb.f.de"/>
 				</data>
 				<data source="0248 .p" name="isPartOf">
 						<equals string="collection:verteilte_rechtsquellen.d-nb.f.de"/>
-						<constant value="collection:verteilte_rechtsquellen.ddb.f.de"/>
+						<constant value="http://digitalisiertedrucke.de/collections/verteilte_rechtsquellen.ddb.f.de"/>
 				</data>
 				<data source="0248 .p" name="isPartOf">
 						<not-equals string="collection:exilzeitschriften.d-nb.f.de"/>
 						<not-equals string="collection:juedische_periodika.d-nb.f.de"/>
 						<not-equals string="collection:verteilte_rechtsquellen.d-nb.f.de"/>
-						<regexp match="(collection:.*)" format="${1}"/>
+						<regexp match="collection:(.*)" format="http://digitalisiertedrucke.de/collections/${1}"/>
 				</data>
 				<!-- TODO: If target a pdf, serve file via HTTP accept header -->
 				<data source="8564 .u" name="fulltextOnline"/>
