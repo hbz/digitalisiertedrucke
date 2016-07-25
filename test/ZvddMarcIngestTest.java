@@ -8,7 +8,6 @@ import org.culturegraph.mf.stream.reader.MarcXmlReader;
 import org.junit.Test;
 
 import util.AbstractIngestTests;
-import util.PipeEncodeTriples;
 
 /**
  * Ingest the ZVDD MARC-XML export.
@@ -32,13 +31,6 @@ public final class ZvddMarcIngestTest extends AbstractIngestTests {
 		encodeJson.setPrettyPrinting(true);
 		super.triples("test/zvdd-title-digitalisation_test.json",
 				"test/zvdd-title-digitalisation_out.json", encodeJson);
-	}
-
-	@Test
-	public void testTriples() { // NOPMD asserts are done in the superclass
-		super.triples("test/zvdd-title-digitalisation_test.nt",
-				"test/zvdd-title-digitalisation_out.nt", new PipeEncodeTriples());
-
 	}
 
 	@Test
