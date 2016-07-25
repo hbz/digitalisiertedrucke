@@ -20,7 +20,6 @@
 			<cgxml:cgxml version="1.0">
 				<cgxml:records>
 					<cgxml:record id="1">
-						<cgxml:literal name="id" value="anything"/>
 						<cgxml:literal name="http://purl.org/dc/terms/isPartOf" value="http://www.zvdd.de/"/>
 						<cgxml:literal name="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
 							value="http://purl.org/dc/dcmitype/Collection"/>
