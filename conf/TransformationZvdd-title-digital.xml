@@ -42,23 +42,18 @@
 				<cgxml:records>
 					<cgxml:record id="1">
 						<cgxml:literal name="id" value="184000"/>
-						<cgxml:literal name="~rdf:subject" value="resource:D184000"/>
-						<cgxml:literal name="http://purl.org/dc/terms/isFormatOf" value="resource:P184000"/>
-						<cgxml:literal name="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-							value="http://purl.org/vocab/frbr/core#Manifestation"/>
-						<cgxml:literal name="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-							value="http://purl.org/dc/terms/BibliographicResource"/>
-						<cgxml:literal name="http://www.w3.org/2004/02/skos/core#Concept"
-							value="http://iflastandards.info/ns/isbd/terms/mediatype/T1002"/>
-						<cgxml:literal name="http://purl.org/dc/terms/isPartOf" value="collection:exil-zeitschriften.ddb.f.de"/>
-						<cgxml:literal name="http://purl.org/dc/terms/isPartOf" value="collection:juedische_periodika.ddb.f.de"/>
-						<cgxml:literal name="http://purl.org/dc/terms/isPartOf" value="collection:verteilte_rechtsquellen.ddb.f.de"/>
-						<cgxml:literal name="http://purl.org/dc/terms/isPartOf" value="collection:sonst.was.schönes"/>
-						<cgxml:literal name="http://purl.org/dc/terms/isPartOf" value="collection:zvdd.hbz.k.de"/>
-						<cgxml:literal name="http://lobid.org/vocab/lobid#fulltextOnline"
-							value="some.value"/>
-						<cgxml:literal name="http://purl.org/dc/elements/1.1/publisher" value="some.value"/>
-						<cgxml:literal name="http://purl.org/dc/terms/created" value="some.value"/>
+						<cgxml:literal name="isFormatOf" value="resource:P184000"/>
+						<cgxml:literal name="type" value="http://purl.org/vocab/frbr/core#Manifestation"/>
+						<cgxml:literal name="type" value="http://purl.org/dc/terms/BibliographicResource"/>
+						<cgxml:literal name="concept" value="http://iflastandards.info/ns/isbd/terms/mediatype/T1002"/>
+						<cgxml:literal name="isPartOf" value="collection:exil-zeitschriften.ddb.f.de"/>
+						<cgxml:literal name="isPartOf" value="collection:juedische_periodika.ddb.f.de"/>
+						<cgxml:literal name="isPartOf" value="collection:verteilte_rechtsquellen.ddb.f.de"/>
+						<cgxml:literal name="isPartOf" value="collection:sonst.was.schönes"/>
+						<cgxml:literal name="isPartOf" value="collection:zvdd.hbz.k.de"/>
+						<cgxml:literal name="fulltextOnline" value="some.value"/>
+						<cgxml:literal name="publisher" value="some.value"/>
+						<cgxml:literal name="created" value="some.value"/>
 					</cgxml:record>
 				</cgxml:records>
 			</cgxml:cgxml>
