@@ -78,7 +78,7 @@ public class ImportData {
 		Logger.info("Transformed type '{}' from '{}' to file '{}'", //
 				type, inputFile, destination);
 		indexData(destination, type);
-		Logger.info("Indexed '{}' from '{}' to index '{}', type '{}'", //
+		Logger.info("Indexed from '{}' to index '{}', type '{}'", //
 				destination, INDEX_NAME, type);
 	}
 
