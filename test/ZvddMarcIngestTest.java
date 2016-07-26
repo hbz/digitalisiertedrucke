@@ -4,6 +4,7 @@
 import java.io.IOException;
 
 import org.culturegraph.mf.stream.converter.JsonEncoder;
+import org.culturegraph.mf.stream.converter.JsonToElasticsearchBulk;
 import org.culturegraph.mf.stream.reader.MarcXmlReader;
 import org.junit.Test;
 
@@ -28,9 +29,11 @@ public final class ZvddMarcIngestTest extends AbstractIngestTests {
 	@Test
 	public void testJson() { // NOPMD asserts are done in the superclass
 		JsonEncoder encodeJson = new JsonEncoder();
+		JsonToElasticsearchBulk esBulk =
+				new JsonToElasticsearchBulk("id", "type", "index");
 		encodeJson.setPrettyPrinting(true);
-		super.triples("test/zvdd-title-digitalisation_test.json",
-				"test/zvdd-title-digitalisation_out.json", encodeJson);
+		super.jsonLines("test/zvdd-title-digitalisation_test.jsonl",
+				"test/zvdd-title-digitalisation_out.jsonl", encodeJson, esBulk);
 	}
 
 	@Test
