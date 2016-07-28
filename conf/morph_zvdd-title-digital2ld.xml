@@ -15,8 +15,8 @@
 				<data source="001" name="type">
 						<constant value="http://purl.org/dc/terms/BibliographicResource"/>
 				</data>
-				<data source="001" name="concept">
-						<constant value="http://iflastandards.info/ns/isbd/terms/mediatype/T1002"/>
+				<data source="001" name="medium">
+						<constant value="http://rdaregistry.info/termList/RDACarrierType/1018"/>
 				</data>
 				<!-- <data source="0248 .p" name="@http://purl.org/dc/terms/isPartOf"> <regexp match="collection:(.*)" 
 						format="${1}"/> </data> -->

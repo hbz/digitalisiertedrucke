@@ -15,8 +15,8 @@
 				<data source="001" name="type">
 						<constant value="http://purl.org/vocab/frbr/core#Manifestation"/>
 				</data>
-				<data source="001" name="concept">
-						<constant value="http://iflastandards.info/ns/isbd/terms/mediatype/T1010"/>
+				<data source="001" name="medium">
+						<constant value="http://rdaregistry.info/termList/RDAproductionMethod/1010"/>
 				</data>
 				<!-- parse "heb | grc | lat | fre | hebr. | gre | lat | franz." and "dutfreitalat" -->
 				<data source="041  .a" name="language">
