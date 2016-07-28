@@ -12,9 +12,6 @@
 				<data source="001" name="type">
 						<constant value="http://purl.org/dc/terms/BibliographicResource"/>
 				</data>
-				<data source="001" name="type">
-						<constant value="http://purl.org/vocab/frbr/core#Manifestation"/>
-				</data>
 				<data source="001" name="medium">
 						<constant value="http://rdaregistry.info/termList/RDAproductionMethod/1010"/>
 				</data>
