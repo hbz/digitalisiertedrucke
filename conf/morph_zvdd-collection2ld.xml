@@ -42,34 +42,38 @@
 				<regexp match="(https?://.*)" format="${1}"/> <!-- some sanitizing -->
 			</data>
 		</combine>
-		<combine name="creator" value="${creator_literal}" sameEntity="true">
-			<data source="7102 .a" name="creator_literal">
-			</data>
-			<data source="7102 .e" name="">
-				<regexp match="creator" format=""/>
-			</data>
-		</combine>
-		<combine name="creator" value="${creator_url}" sameEntity="true">
-			<data source="7102 .u" name="creator_url">
-			</data>
-			<data source="7102 .e" name="">
-				<regexp match="creator" format=""/>
-			</data>
-		</combine>
-		<combine name="contributor" value="${contributor_literal}" sameEntity="true">
-			<data source="7102 .a" name="contributor_literal">
-			</data>
-			<data source="7102 .e" name="">
-				<regexp match="cooperation" format=""/>
-			</data>
-		</combine>
-		<combine name="contributor" value="${contributor_url}" sameEntity="true">
-			<data source="7102 .u" name="contributor_url">
-			</data>
-			<data source="7102 .e" name="">
-				<regexp match="cooperation" format=""/>
-			</data>
-		</combine>
+		<entity name="creator">
+			<combine name="name" value="${creator_literal}" sameEntity="true">
+				<data source="7102 .a" name="creator_literal">
+				</data>
+				<data source="7102 .e" name="">
+					<regexp match="creator" format=""/>
+				</data>
+			</combine>
+			<combine name="url" value="${creator_url}" sameEntity="true">
+				<data source="7102 .u" name="creator_url">
+				</data>
+				<data source="7102 .e" name="">
+					<regexp match="creator" format=""/>
+				</data>
+			</combine>
+		</entity>
+		<entity name="contributor">
+			<combine name="name" value="${contributor_literal}" sameEntity="true">
+				<data source="7102 .a" name="contributor_literal">
+				</data>
+				<data source="7102 .e" name="">
+					<regexp match="cooperation" format=""/>
+				</data>
+			</combine>
+			<combine name="url" value="${contributor_url}" sameEntity="true">
+				<data source="7102 .u" name="contributor_url">
+				</data>
+				<data source="7102 .e" name="">
+					<regexp match="cooperation" format=""/>
+				</data>
+			</combine>
+		</entity>
 		<!-- Leave all other fields untransformed: <data source="_else"/> -->
 	</rules>
 </metamorph>

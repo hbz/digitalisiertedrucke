@@ -31,14 +31,18 @@
 				<data source="041  .a" name="language">
 						<regexp match="^\w{3}\W*\w{3}\W*\w{3}\W*(\w{3}).*$" format="http://id.loc.gov/vocabulary/iso639-2/${1}"/>
 				</data>
-				<data source="1001 .a" name="creator"/>
+				<entity name="creator">
+					<choose name="name">
+						<data source="1001 .a"/>
+						<data source="24500.c"/>
+					</choose>
+				</entity>
 				<!-- Map specific fields: -->
 				<data source="24500.a" name="title">
 						<!-- Strip newlines with surrounding space: -->
 						<replace pattern="\s*\n+\s*" with=" "/>
 				</data>
 				<data source="24500.b" name="alternative"/>
-				<data source="24500.c" name="creator"/>
 				<data source="260  .c" name="issued">
 						<!-- One processing example: pick out first valid year: -->
 						<replace pattern="\[.+\]" with=""/>

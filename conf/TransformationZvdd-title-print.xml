@@ -52,7 +52,6 @@
 						<cgxml:literal name="medium" value="http://rdaregistry.info/termList/RDAproductionMethod/1010"/>
 						<cgxml:literal name="fulltextOnline" value="http://digi.ub.uni-heidelberg.de/diglit/falke1873"/>
 						<cgxml:literal name="title" value="Kunst und Kunstgewerbe auf der Wiener Weltausstellung 1873"/>
-						<cgxml:literal name="creator" value="Falke, Jakob"/>
 						<cgxml:literal name="issued" value="1873"/>
 						<cgxml:literal name="language" value="http://id.loc.gov/vocabulary/iso639-2/ger"/>
 						<cgxml:literal name="language" value="http://id.loc.gov/vocabulary/iso639-2/lat"/>
@@ -61,6 +60,9 @@
 						<cgxml:literal name="type" value="http://purl.org/ontology/bibo/Article"/>
 						<cgxml:literal name="type" value="http://purl.org/ontology/bibo/Book"/>
 						<cgxml:literal name="type" value="http://purl.org/ontology/bibo/Series"/>
+						<cgxml:entity name="creator">
+							<cgxml:literal name="name" value="Falke, Jakob"/>
+						</cgxml:entity>
 					</cgxml:record>
 				</cgxml:records>
 			</cgxml:cgxml>
