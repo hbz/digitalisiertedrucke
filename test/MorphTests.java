@@ -11,6 +11,6 @@ import org.junit.runner.RunWith;
 @TestDefinitions({ "TransformationZvdd-title-print.xml",
 		"TransformationZvdd-title-digital.xml",
 		"TransformationZvdd-collection.xml" })
-public final class TransformationZVDDTests {
+public final class MorphTests {
 	/* Suite class, groups tests via annotation above */
 }

@@ -2,7 +2,7 @@
 <!-- Copyright 2013 Fabian Steeg. Licensed under the Eclipse Public License -->
 <metamorph-test version="1.0" xmlns="http://www.culturegraph.org/metamorph-test"
 	xmlns:cgxml="http://www.culturegraph.org/cgxml">
-	<test-case name="ZVDD Transformation">
+	<test-case name="ZVDD collection Transformation">
 		<input type="text/x-cg+xml">
 			<cgxml:cgxml version="1.0">
 				<cgxml:records>
@@ -20,11 +20,10 @@
 			<cgxml:cgxml version="1.0">
 				<cgxml:records>
 					<cgxml:record id="1">
-						<cgxml:literal name="id" value="anything"/>
-						<cgxml:literal name="http://purl.org/dc/terms/isPartOf" value="http://www.zvdd.de/"/>
-						<cgxml:literal name="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+						<cgxml:literal name="isPartOf" value="http://digitalisiertedrucke.de/collections"/>
+						<cgxml:literal name="type"
 							value="http://purl.org/dc/dcmitype/Collection"/>
-						<cgxml:literal name="http://purl.org/dc/terms/subject" value="http://dewey.info/class/111/"/>
+						<cgxml:literal name="subject" value="http://dewey.info/class/111/"/>
 					</cgxml:record>
 				</cgxml:records>
 			</cgxml:cgxml>

@@ -18,6 +18,7 @@ import org.culturegraph.mf.framework.DefaultStreamPipe;
 import org.culturegraph.mf.framework.ObjectReceiver;
 import org.culturegraph.mf.morph.Metamorph;
 import org.culturegraph.mf.morph.MorphErrorHandler;
+import org.culturegraph.mf.stream.converter.JsonToElasticsearchBulk;
 import org.culturegraph.mf.stream.pipe.ObjectTee;
 import org.culturegraph.mf.stream.reader.Reader;
 import org.culturegraph.mf.stream.sink.ObjectWriter;
@@ -54,17 +55,20 @@ public abstract class AbstractIngestTests {
 	}
 
 	/**
-	 * Tests if the generated triples equals the triples in the test file
+	 * Tests if the generated JSON lines equals the JSON lines in the test file
 	 * 
 	 * @param testFileName The test file name, residing in the resource folder
 	 * @param generatedFileName The to be generated file name .
 	 * @param dsp A DefaultStreampipe
+	 * @param esBulk Elasticsearch bulk export
 	 */
-	public void triples(final String testFileName, final String generatedFileName,
-			final DefaultStreamPipe<ObjectReceiver<String>> dsp) {
+	public void jsonLines(final String testFileName,
+			final String generatedFileName,
+			final DefaultStreamPipe<ObjectReceiver<String>> dsp,
+			JsonToElasticsearchBulk esBulk) {
 		setUpErrorHandler(metamorph);
 		final File generatedFile = new File(generatedFileName);
-		process(dsp, generatedFile);
+		process(dsp, esBulk, generatedFile);
 		File testFile;
 		testFile = new File(testFileName);
 		compareFilesDefaultingBNodes(generatedFile, testFile);
@@ -94,8 +98,8 @@ public abstract class AbstractIngestTests {
 			final File testFile) {
 		assertSetSize(linesInFileToSetDefaultingBNodes(testFile),
 				linesInFileToSetDefaultingBNodes(generatedFile));
-		assertSetElements(linesInFileToSetDefaultingBNodes(generatedFile),
-				linesInFileToSetDefaultingBNodes(testFile));
+		assertSetElements(linesInFileToSetDefaultingBNodes(testFile),
+				linesInFileToSetDefaultingBNodes(generatedFile));
 	}
 
 	/**
@@ -168,7 +172,7 @@ public abstract class AbstractIngestTests {
 	public void dot(final String fname) {
 		setUpErrorHandler(metamorph);
 		final File file = new File(fname);
-		process(new PipeEncodeDot(), file);
+		process(new PipeEncodeDot(), null, file);
 		Assert.assertTrue(file.exists());
 		file.deleteOnExit();
 	}
@@ -194,9 +198,14 @@ public abstract class AbstractIngestTests {
 
 	protected void process(
 			final DefaultStreamPipe<ObjectReceiver<String>> encoder,
-			final File file) {
+			JsonToElasticsearchBulk esBulk, final File file) {
 		final ObjectTee<String> tee = outputTee(file);
-		reader.setReceiver(metamorph).setReceiver(encoder).setReceiver(tee);
+		Metamorph morph = reader.setReceiver(metamorph);
+		if (esBulk == null) {
+			morph.setReceiver(encoder).setReceiver(tee);
+		} else {
+			morph.setReceiver(encoder).setReceiver(esBulk).setReceiver(tee);
+		}
 		processFile();
 		reader.closeStream();
 		Assert.assertTrue("File should exist", file.exists());
@@ -251,7 +260,7 @@ public abstract class AbstractIngestTests {
 	 */
 	private static StringBuilder concatenateGeneratedFilesIntoOneString(
 			String targetPath, StringBuilder triples)
-					throws FileNotFoundException, IOException {
+			throws FileNotFoundException, IOException {
 		File parentPath = new File(targetPath + "/");
 		for (String filename : parentPath.list()) {
 			File newFile = new File(parentPath + "/" + filename);

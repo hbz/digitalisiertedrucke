@@ -10,5 +10,7 @@ before_install:
   - cd ..
   - wget http://downloads.typesafe.com/typesafe-activator/${ACTIVATOR_VERSION}/typesafe-activator-${ACTIVATOR_VERSION}-minimal.zip
   - unzip typesafe-activator-${ACTIVATOR_VERSION}-minimal.zip
+before_script:
+  - activator-${ACTIVATOR_VERSION}-minimal/bin/activator "runMain ImportData"
 script:
   - activator-${ACTIVATOR_VERSION}-minimal/bin/activator test

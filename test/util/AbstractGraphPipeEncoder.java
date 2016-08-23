@@ -21,7 +21,7 @@ import org.culturegraph.mf.framework.annotations.Out;
 public abstract class AbstractGraphPipeEncoder
 		extends DefaultStreamPipe<ObjectReceiver<String>> {
 
-	static final String SUBJECT_NAME = "~rdf:subject";
+	static final String SUBJECT_NAME = "id";
 	String subject;
 
 	/**

@@ -3,46 +3,42 @@
 		version="1">
 		<rules>
 				<!-- General attributes for each record: -->
-				<data source="001" name="id"/>
-				<data source="001" name="~rdf:subject">
-						<regexp match=".*" format="resource:D${0}"/>
+				<data source="001" name="id">
+					<regexp match="(.*)" format="http://digitalisiertedrucke.de/resources/D${0}"/>
 				</data>
-				<data source="001" name="http://purl.org/dc/terms/isFormatOf">
-						<regexp match=".*" format="resource:P${0}"/>
+				<data source="001" name="isFormatOf">
+						<regexp match=".*" format="http://digitalisiertedrucke.de/resources/P${0}"/>
 				</data>
-				<data source="001" name="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">
-						<constant value="http://purl.org/vocab/frbr/core#Manifestation"/>
-				</data>
-				<data source="001" name="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">
+				<data source="001" name="type">
 						<constant value="http://purl.org/dc/terms/BibliographicResource"/>
 				</data>
-				<data source="001" name="http://www.w3.org/2004/02/skos/core#Concept">
-						<constant value="http://iflastandards.info/ns/isbd/terms/mediatype/T1002"/>
+				<data source="001" name="medium">
+						<constant value="http://rdaregistry.info/termList/RDACarrierType/1018"/>
 				</data>
 				<!-- <data source="0248 .p" name="@http://purl.org/dc/terms/isPartOf"> <regexp match="collection:(.*)" 
 						format="${1}"/> </data> -->
-				<data source="0248 .p" name="http://purl.org/dc/terms/isPartOf">
+				<data source="0248 .p" name="isPartOf">
 						<equals string="collection:exilzeitschriften.d-nb.f.de"/>
-						<constant value="collection:exil-zeitschriften.ddb.f.de"/>
+						<constant value="http://digitalisiertedrucke.de/collections/exil-zeitschriften.ddb.f.de"/>
 				</data>
-				<data source="0248 .p" name="http://purl.org/dc/terms/isPartOf">
+				<data source="0248 .p" name="isPartOf">
 						<equals string="collection:juedische_periodika.d-nb.f.de"/>
-						<constant value="collection:juedische_periodika.ddb.f.de"/>
+						<constant value="http://digitalisiertedrucke.de/collections/juedische_periodika.ddb.f.de"/>
 				</data>
-				<data source="0248 .p" name="http://purl.org/dc/terms/isPartOf">
+				<data source="0248 .p" name="isPartOf">
 						<equals string="collection:verteilte_rechtsquellen.d-nb.f.de"/>
-						<constant value="collection:verteilte_rechtsquellen.ddb.f.de"/>
+						<constant value="http://digitalisiertedrucke.de/collections/verteilte_rechtsquellen.ddb.f.de"/>
 				</data>
-				<data source="0248 .p" name="http://purl.org/dc/terms/isPartOf">
+				<data source="0248 .p" name="isPartOf">
 						<not-equals string="collection:exilzeitschriften.d-nb.f.de"/>
 						<not-equals string="collection:juedische_periodika.d-nb.f.de"/>
 						<not-equals string="collection:verteilte_rechtsquellen.d-nb.f.de"/>
-						<regexp match="(collection:.*)" format="${1}"/>
+						<regexp match="collection:(.*)" format="http://digitalisiertedrucke.de/collections/${1}"/>
 				</data>
 				<!-- TODO: If target a pdf, serve file via HTTP accept header -->
-				<data source="8564 .u" name="http://lobid.org/vocab/lobid#fulltextOnline"/>
-				<data source="533  .c" name="http://purl.org/dc/elements/1.1/publisher"/>
-				<data source="533  .d" name="http://purl.org/dc/terms/created"/>
+				<data source="8564 .u" name="fulltextOnline"/>
+				<data source="533  .c" name="publisher"/>
+				<data source="533  .d" name="created"/>
 				<!-- Leave all other fields untransformed: <data source="_else"/> -->
 		</rules>
 		<!-- Nice to have, using map lookup instead of regex . Whats missing, now: if no entry was found, the to be looked up key should be used as value

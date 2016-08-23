@@ -1,6 +1,6 @@
 h1. About
 
-Metadata transformations are done with the software "culturegraph-metafacture":https://github.com/culturegraph. All the necessary mapping and config files for transformations reside in the project's subfolder. The "metafacture-ide-wiki":https://github.com/culturegraph/metafacture-ide/wiki provides documentation for users and developers about how to use these files to tweak or/and execute these transformations.
+Work in progress: transformation and web access for hbz's "digitalisiertedrucke.de":http://www.digitalisiertedrucke.de "data":https://datahub.io/dataset/hbz-zvdd.
 
 h1. Build
 
@@ -27,3 +27,39 @@ Get @digitalisiertedrucke@, set up the Play application, and run the tests:
 * @cd git/digitalisiertedrucke ; ~/activator-1.3.10-minimal/bin/activator test@
 
 See the @.travis.yml@ file for details on the CI config used by Travis.
+
+h1. Data import
+
+To transform the bzipped Marc-XML source data to JSON and index into an embedded Elasticsearch index, run:
+
+@~/activator-1.3.10-minimal/bin/activator "runMain ImportData"@
+
+Metadata transformations are implemented with "Metafacture":https://github.com/culturegraph/metafacture-documentation.
+
+h1. Web app
+
+h2. Development mode
+
+To start the web app in development mode, run:
+
+@~/activator-1.3.10-minimal/bin/activator run@
+
+And visit "http://localhost:9000":http://localhost:9000
+
+h2. Production mode
+
+Customize @conf/application.conf@, set:
+
+* @play.crypto.secret@ to a custom value
+* @index.location@ to the absolute path of the deployed repo, e.g. @"/home/sol/git/digitalisiertedrucke"@
+* @index.host@ to the host name of the deployment machine, e.g. @"quaoar1.hbz-nrw.de"@
+
+Then start the app in production mode, with the port to run on:
+
+@~/activator-1.3.10-minimal/bin/activator "start 6000"@
+
+h1. Eclipse setup
+
+To generate an Eclipse project (import in Eclipse as existing project), run:
+
+@~/activator-1.3.10-minimal/bin/activator compile "eclipse with-source=true"@
