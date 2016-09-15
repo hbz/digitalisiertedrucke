@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -16,11 +17,15 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.node.Node;
 import org.elasticsearch.node.NodeBuilder;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
 import play.inject.ApplicationLifecycle;
 import play.libs.Json;
+import play.libs.ws.WSClient;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
@@ -31,6 +36,9 @@ import views.html.index;
  */
 @Singleton
 public class HomeController extends Controller {
+
+	@Inject
+	WSClient ws;
 
 	/** The application config. */
 	public static final Config CONFIG = ConfigFactory.load();
@@ -83,6 +91,42 @@ public class HomeController extends Controller {
 		return searchResponse.getHits().totalHits() == 0 ? searchResponse.toString()
 				: Json.prettyPrint(
 						Json.parse(searchResponse.getHits().getAt(0).getSourceAsString()));
+	}
+
+	/**
+	 * Method to get a specific document by id, either rendered within a html view
+	 * or as plain Json.
+	 * 
+	 * @param id id of the document that is supposed to be returned
+	 * @param format specifies in which format the content shall be returned
+	 * @return either render a view, return the content as Json or report
+	 *         "not found"
+	 */
+	public CompletionStage<Result> get(String id, String format) {
+		response().setHeader("Access-Control-Allow-Origin", "*");
+		String server = "http://localhost:6011";
+		String url = String.format("%s/%s/%s/%s/_source", server,
+				"digitalisiertedrucke", "title-print", id);
+		if (format != null && format.equals("html")) {
+			return ws.url(url).get()
+					.thenApplyAsync(response -> response.getStatus() == OK
+							? ok(views.html.details.render(id, response.asJson()))
+							: notFound("Not found: " + id));
+		}
+		return ws.url(url).get()
+				.thenApplyAsync(response -> response.getStatus() == OK
+						? ok(prettyJsonOk(response.asJson()))
+						: notFound("Not found: " + id));
+	}
+
+	private static String prettyJsonOk(JsonNode jsonNode) {
+		try {
+			return new ObjectMapper().writerWithDefaultPrettyPrinter()
+					.writeValueAsString(jsonNode);
+		} catch (JsonProcessingException x) {
+			x.printStackTrace();
+			return null;
+		}
 	}
 
 }
