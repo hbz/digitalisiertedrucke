@@ -1,12 +1,12 @@
 package controllers;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.elasticsearch.action.admin.indices.refresh.RefreshRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -102,21 +102,20 @@ public class HomeController extends Controller {
 	 * @return either render a view, return the content as Json or report
 	 *         "not found"
 	 */
-	public CompletionStage<Result> get(String id, String format) {
+	public Result get(String id, String format) {
 		response().setHeader("Access-Control-Allow-Origin", "*");
-		String server = "http://localhost:6011";
-		String url = String.format("%s/%s/%s/%s/_source", server,
-				"digitalisiertedrucke", "title-print", id);
-		if (format != null && format.equals("html")) {
-			return ws.url(url).get()
-					.thenApplyAsync(response -> response.getStatus() == OK
-							? ok(views.html.details.render(id, response.asJson()))
-							: notFound("Not found: " + id));
-		}
-		return ws.url(url).get()
-				.thenApplyAsync(response -> response.getStatus() == OK
-						? ok(prettyJsonOk(response.asJson()))
-						: notFound("Not found: " + id));
+		GetResponse resultPrint =
+				client.prepareGet(indexName, "title-print", id).execute().actionGet();
+		JsonNode resultPrintAsJson = Json.parse(resultPrint.getSourceAsString());
+
+		GetResponse resultDigital =
+				client.prepareGet(indexName, "title-digital", id).execute().actionGet();
+		JsonNode resultDigitalAsJson =
+				Json.parse(resultDigital.getSourceAsString());
+
+		return ok(
+				views.html.details.render(id, resultPrintAsJson, resultDigitalAsJson));
+
 	}
 
 	private static String prettyJsonOk(JsonNode jsonNode) {
