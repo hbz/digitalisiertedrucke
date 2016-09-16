@@ -6,6 +6,7 @@
 		<data source="992  .a" name="id">
 			<regexp match="collection:(.*\..*)" format="http://digitalisiertedrucke.de/collections/${1}"/><!-- some sanitizing -->
 		</data>
+		<data source="001" name="elasticsearchId" />
 		<data source="001" name="isPartOf"> <!-- the same as in zvdd-title -->
 			<constant value="http://digitalisiertedrucke.de/collections"/>
 		</data>

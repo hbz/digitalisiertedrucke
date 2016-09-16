@@ -6,6 +6,7 @@
 				<data source="001" name="id">
 					<regexp match="(.*)" format="http://digitalisiertedrucke.de/resources/P${0}"/>
 				</data>
+				<data source="001" name="elasticsearchId" />
 				<data source="001" name="hasFormat">
 						<regexp match="(.*)" format="http://digitalisiertedrucke.de/resources/D${1}"/>
 				</data>
