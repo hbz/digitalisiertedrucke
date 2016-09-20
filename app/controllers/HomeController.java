@@ -78,13 +78,15 @@ public class HomeController extends Controller {
 	 * @param t Ther ES type (collection, title-print, title-digital)
 	 * @param from From parameter for Elasticsearch query
 	 * @param size Size parameter for Elasitcsearch query
-	 * @param format The response format ('html' for HTML, else JSON)
+	 * @param format The response format ('json' for JSON, else HTML)
 	 * @return Result of search as ok() or badRequest()
 	 */
 	public Result search(String q, String t, int from, int size, String format) {
 		try {
-			// TODO: implement html format support (result list)
-			return ok(Json.parse(search(q, t, from, size)));
+			String searchResponse = search(q, t, from, size);
+			return format != null && format.equals("json")
+					? ok(Json.parse(searchResponse))
+					: ok(views.html.search.render(q, searchResponse, from, size));
 		} catch (IllegalArgumentException x) {
 			x.printStackTrace();
 			return badRequest("Bad request: " + x.getMessage());
