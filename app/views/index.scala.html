@@ -2,19 +2,37 @@
 
 @main("digitalisiertedrucke") {
 
-<h1>Collections:</h1>
+<h1>Search API:</h1>
+
+<h2>Queries:</h2>
+
+@defining(routes.HomeController.search(q="*")) { url => <a href="@url">@url</a> }
+
+<h2>Pages:</h2>
+
+@defining(routes.HomeController.search(q="mittelalter", from=5, size=10)) { url => <a href="@url">@url</a> }
+
+<h2>Types:</h2>
+
+@defining(routes.HomeController.search(q="*", t="collection")) { url => <a href="@url">@url</a> } <br/>
+@defining(routes.HomeController.search(q="*", t="title-print")) { url => <a href="@url">@url</a> } <br/>
+@defining(routes.HomeController.search(q="*", t="title-digital")) { url => <a href="@url">@url</a> }
+
+<h1>Index access:</h1>
+
+<h2>Collections:</h2>
 
 @defining(s"http://$host:$port/digitalisiertedrucke/collection/_search?q=*") { url => <a href="@url">@url</a> }
 
 <pre><code>@collections</code></pre>
 
-<h1>Print:</h1>
+<h2>Print:</h2>
 
 @defining(s"http://$host:$port/digitalisiertedrucke/title-print/_search?q=*") { url => <a href="@url">@url</a> }
 
 <pre><code>@print</code></pre>
 
-<h1>Digital:</h1>
+<h2>Digital:</h2>
 
 @defining(s"http://$host:$port/digitalisiertedrucke/title-digital/_search?q=*") { url => <a href="@url">@url</a> }
 

@@ -73,16 +73,42 @@ public class HomeController extends Controller {
 				search("title-print"), search("title-digital")));
 	}
 
+	/**
+	 * @param q The search string
+	 * @param t Ther ES type (collection, title-print, title-digital)
+	 * @param from From parameter for Elasticsearch query
+	 * @param size Size parameter for Elasitcsearch query
+	 * @param format The response format ('html' for HTML, else JSON)
+	 * @return Result of search as ok() or badRequest()
+	 */
+	public Result search(String q, String t, int from, int size, String format) {
+		try {
+			// TODO: implement html format support (result list)
+			return ok(Json.parse(search(q, t, from, size)));
+		} catch (IllegalArgumentException x) {
+			x.printStackTrace();
+			return badRequest("Bad request: " + x.getMessage());
+		}
+	}
+
 	private String search(String type) {
+		return search("*", type, 0, 1);
+	}
+
+	private String search(String q, String type, int from, int size) {
 		client.admin().indices().refresh(new RefreshRequest()).actionGet();
-		QueryBuilder simpleQuery = QueryBuilders.queryStringQuery("*");
+		QueryBuilder simpleQuery = QueryBuilders.queryStringQuery(q);
 		SearchRequestBuilder searchRequest = client.prepareSearch(indexName)
-				.setTypes(type).setSearchType(SearchType.QUERY_THEN_FETCH)
-				.setQuery(simpleQuery).setSize(1);
+				.setSearchType(SearchType.QUERY_THEN_FETCH).setQuery(simpleQuery)
+				.setFrom(from).setSize(size);
+		if (type != null) {
+			searchRequest = searchRequest.setTypes(type);
+		}
 		SearchResponse searchResponse = searchRequest.execute().actionGet();
-		return searchResponse.getHits().totalHits() == 0 ? searchResponse.toString()
-				: Json.prettyPrint(
-						Json.parse(searchResponse.getHits().getAt(0).getSourceAsString()));
+		return size == 1
+				? Json.prettyPrint(
+						Json.parse(searchResponse.getHits().getAt(0).getSourceAsString()))
+				: searchResponse.toString();
 	}
 
 }
