@@ -69,8 +69,7 @@ public class HomeController extends Controller {
 	 */
 	public Result index() {
 		return ok(index.render(request().host().split(":")[0],
-				CONFIG.getString("index.http_port"), search("collection"),
-				search("title-print"), search("title-digital")));
+				CONFIG.getString("index.http_port")));
 	}
 
 	/**
@@ -91,10 +90,6 @@ public class HomeController extends Controller {
 			x.printStackTrace();
 			return badRequest("Bad request: " + x.getMessage());
 		}
-	}
-
-	private String search(String type) {
-		return search("*", type, 0, 1);
 	}
 
 	private String search(String q, String type, int from, int size) {

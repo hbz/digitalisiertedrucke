@@ -7,7 +7,14 @@
 @main(q) {
 	@defining((Json.parse(json)\"hits"\"hits").as[Seq[JsValue]]) { items =>
 		@if(items.size > 1) {
-			<p>Treffer @(from+1) bis @(from+size)</p>
+			<p>
+			@defining((Json.parse(json) \ "hits" \ "total").as[Int]) { totalResults =>
+				Treffer: @(totalResults) |
+				@if(from > 0){<a href='@routes.HomeController.search(q=q, from=from-size)'>&LeftArrow; Vorige</a>}
+				@(from+1)&mdash;@(Math.min(totalResults, from+size))
+				@if(totalResults > from+size){<a href='@routes.HomeController.search(q=q, from=from+size)'>Nächste &RightArrow;</a>}
+			}
+			</p>
 			<dl>
 			@for(item <- items) {
 				<dt>@((item \ "_source" \ "title").asOpt[String].getOrElse("--"))</dt>
