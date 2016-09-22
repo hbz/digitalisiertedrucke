@@ -19,7 +19,7 @@
 			@for(item <- items) {
 				<dt>@((item \ "_source" \ "title").asOpt[String].getOrElse("--"))</dt>
 				@defining((item \ "_source" \ "id").asOpt[String].getOrElse("--")) { id =>
-				<dd><a href="@id">@id</a></dd>
+				<dd><a href='@id.replace("digitalisiertedrucke.de", request().host())'>@id</a></dd>
 				}
 			}
 			</dl>
