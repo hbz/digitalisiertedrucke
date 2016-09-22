@@ -101,19 +101,19 @@ public class HomeController extends Controller {
 	 * @return either render a view, return the content as Json or report
 	 *         "not found"
 	 */
-	public Result get(String id, String format) {
+	public Result getResource(String id, String format) {
 		response().setHeader("Access-Control-Allow-Origin", "*");
 
-		id = id.substring(1, id.length());
+		String normalizedId = id.substring(1, id.length());
 
-		String printId = "http://digitalisiertedrucke.de/resources/P" + id;
+		String printId =
+				"http://digitalisiertedrucke.de/resources/P" + normalizedId;
 		GetResponse resultPrint = client
 				.prepareGet(indexName, "title-print", printId).execute().actionGet();
 		JsonNode resultPrintAsJson = Json.parse(resultPrint.getSourceAsString());
 
-		System.out.println(resultPrint.getSourceAsString());
-
-		String digitalId = "http://digitalisiertedrucke.de/resources/D" + id;
+		String digitalId =
+				"http://digitalisiertedrucke.de/resources/D" + normalizedId;
 		GetResponse resultDigital =
 				client.prepareGet(indexName, "title-digital", digitalId).execute()
 						.actionGet();
@@ -123,8 +123,20 @@ public class HomeController extends Controller {
 
 		// JsonNode collection = resultDigitalAsJson.get("isPartOf");
 
-		return ok(
-				views.html.details.render(id, resultPrintAsJson, resultDigitalAsJson));
+		return ok(views.html.resource.render(normalizedId, resultPrintAsJson,
+				resultDigitalAsJson));
+	}
+
+	public Result getCollection(String id, String format) {
+		response().setHeader("Access-Control-Allow-Origin", "*");
+		String normalizedId = "http://digitalisiertedrucke.de/collections/" + id;
+		GetResponse resultCollection =
+				client.prepareGet(indexName, "collection", normalizedId).execute()
+						.actionGet();
+		JsonNode resultCollectionAsJson =
+				Json.parse(resultCollection.getSourceAsString());
+
+		return ok(views.html.collection.render(id, resultCollectionAsJson));
 
 	}
 
