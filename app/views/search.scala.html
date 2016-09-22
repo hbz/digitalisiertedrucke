@@ -4,6 +4,38 @@
 
 @import play.api.libs.json._
 
+@links(buckets: Seq[JsValue], key: String) = {
+	@for(bucket <- buckets; term = (bucket \ "key").as[String]; count = (bucket \ "doc_count").as[Int]) {
+		@if(q.contains(key+":\""+term+"\"")){
+		@term
+		<a href='@routes.HomeController.search()?from=@from&size=@size&q=@q.replace("AND "+key+":\""+term+"\"","").trim'>
+		<span class="badge">Filter entfernen &otimes;</span>
+		</a>
+		} else {
+		<a href='@routes.HomeController.search()?from=@from&size=@size&q=@q.trim+AND+@key:"@term"'>@term (@count)</a>
+		}<br/>
+	}
+}
+
+@facet(queryMetadata: JsValue, key: String) = {
+	@defining((key.replace('.','_'), (queryMetadata \ "aggregations" \ key \ "buckets").as[Seq[JsValue]])) { case (jsKey, buckets) =>
+		@if(!buckets.isEmpty) {
+		<h4>@key.split("\\.")(0).capitalize</h4>
+		@links(buckets.take(5), key)
+		@if(buckets.size>5){
+			<a id='more-@jsKey-link' href="javascript:void(0);" onclick='document.getElementById("more-@jsKey").style.display = ""; document.getElementById("more-@jsKey-link").style.display = "none"; document.getElementById("less-@jsKey-link").style.display = "";'>
+			&oplus;Alle
+			</a>
+			<div id='more-@jsKey' style="display: none;">
+			@links(buckets.drop(5), key)
+			</div>
+			<a id='less-@jsKey-link' href="javascript:void(0);" onclick='document.getElementById("more-@jsKey").style.display = "none"; document.getElementById("less-@jsKey-link").style.display = "none"; document.getElementById("more-@jsKey-link").style.display = "";' style='display:none;'>
+			&ominus;Weniger
+			</a>
+		}}
+	}
+}
+
 @main(q) {
 	@defining((Json.parse(json)\"hits"\"hits").as[Seq[JsValue]]) { items =>
 		@if(items.size > 1) {
@@ -15,14 +47,23 @@
 				@if(totalResults > from+size){<a href='@routes.HomeController.search(q=q, from=from+size)'>Nächste &RightArrow;</a>}
 			}
 			</p>
-			<dl>
-			@for(item <- items) {
-				<dt>@((item \ "_source" \ "title").asOpt[String].getOrElse("--"))</dt>
-				@defining((item \ "_source" \ "id").asOpt[String].getOrElse("--")) { id =>
-				<dd><a href='@id.replace("digitalisiertedrucke.de", request().host())'>@id</a></dd>
-				}
-			}
-			</dl>
+			<div class="grid">
+				<div>
+					<dl>
+					@for(item <- items) {
+						<dt>@((item \ "_source" \ "title").asOpt[String].getOrElse("--"))</dt>
+						@defining((item \ "_source" \ "id").asOpt[String].getOrElse("--")) { id =>
+						<dd><a href='@id.replace("digitalisiertedrucke.de", request().host())'>@id</a></dd>
+						}
+					}
+					</dl>
+				</div>
+				<div>
+					@for(field <- HomeController.FACETS) {
+						@facet(Json.parse(json), field)
+					}
+				</div>
+		</div>
 		} else {
 			<p>Keine Treffer.</p>
 		}

@@ -10,3 +10,13 @@ dd {
 	margin-left: 0;
 	margin-bottom: 5px;
 }
+
+.grid {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.grid>* {
+	flex-basis: 10em;
+	flex-grow: 1;
+}

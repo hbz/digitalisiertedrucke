@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 import javax.inject.Inject;
@@ -15,6 +16,7 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.node.Node;
 import org.elasticsearch.node.NodeBuilder;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -92,6 +94,10 @@ public class HomeController extends Controller {
 		}
 	}
 
+	/** Facet fields. */
+	public static final String[] FACETS = { "type", "medium", "subject",
+			"temporal", "spatial", "created", "isPartOf" };
+
 	private String search(String q, String type, int from, int size) {
 		client.admin().indices().refresh(new RefreshRequest()).actionGet();
 		QueryBuilder simpleQuery = QueryBuilders.queryStringQuery(q);
@@ -101,11 +107,21 @@ public class HomeController extends Controller {
 		if (type != null) {
 			searchRequest = searchRequest.setTypes(type);
 		}
+		searchRequest = withAggregations(searchRequest, FACETS);
 		SearchResponse searchResponse = searchRequest.execute().actionGet();
 		return size == 1
 				? Json.prettyPrint(
 						Json.parse(searchResponse.getHits().getAt(0).getSourceAsString()))
 				: searchResponse.toString();
+	}
+
+	private static SearchRequestBuilder withAggregations(
+			final SearchRequestBuilder searchRequest, String... fields) {
+		Arrays.asList(fields).forEach(field -> {
+			searchRequest.addAggregation(AggregationBuilders.terms(field)
+					.field(field + ".raw").size(Integer.MAX_VALUE));
+		});
+		return searchRequest;
 	}
 
 }
