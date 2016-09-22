@@ -47,6 +47,7 @@
 				<cgxml:records>
 					<cgxml:record id="1">
 						<cgxml:literal name="id" value="http://digitalisiertedrucke.de/resources/P184000"/>
+						<cgxml:literal name="elasticsearchId" value="184000"/>
 						<cgxml:literal name="hasFormat" value="http://digitalisiertedrucke.de/resources/D184000"/>
 						<cgxml:literal name="type" value="http://purl.org/dc/terms/BibliographicResource"/>
 						<cgxml:literal name="medium" value="http://rdaregistry.info/termList/RDAproductionMethod/1010"/>
