@@ -10,8 +10,26 @@
         @produceRow("hasFormat", parsedContentPrint \ "hasFormat", (s:String) => Some(s))
         @produceRow("Medium", parsedContentPrint \ "medium", (s:String) => Some(s))
         @produceRow("Bibliographische Angabe", parsedContentPrint \ "bibliographicCitation",_ => None)
-        @produceRow("Volltext", parsedContentPrint \ "fulltextOnline", (s:String) => Some(s))
-        @produceRow("Art", parsedContentPrint \ "type", (s:String) => Some(s))
+        @produceRow("Volltext", parsedContentPrint \ "fulltextOnline", (s:String) => Some(s))        
+       
+        <tr>
+          <td>Art</td>
+          @for((resourceType, i) <- (parsedContentPrint \ "type").asOpt[Seq[JsValue]].getOrElse(Seq()).zipWithIndex) {
+            @if(i == 0) {          
+              <td>
+                @resourceType.as[String]
+              </td>
+            } else {
+              <tr>
+                <td></td>
+                <td>
+                  @resourceType.as[String]
+                 </td>
+              </tr>
+            }
+          }
+        </tr>
+        
     </table>
 }
 
@@ -25,7 +43,26 @@
         @produceRow("medium", parsedContentDigital \ "medium", (s:String) => Some(s))
         @produceRow("Volltext", parsedContentDigital \ "fulltextOnline", (s:String) => Some(s))
         @produceRow("Art", parsedContentDigital \ "type", (s:String) => Some(s))
-        @produceRow("isPartOf", parsedContentDigital \ "isPartOf", (s:String) => Some(s))
+        
+        <tr>
+          <td>isPartOf</td>
+          @for((isPartOf, i) <- (parsedContentDigital \ "isPartOf").asOpt[Seq[JsValue]].getOrElse(Seq()).zipWithIndex) {
+            @if(i == 0) {          
+              <td>
+                @isPartOf.as[String]
+              </td>
+            } else {
+              <tr>
+                <td></td>
+                <td>
+                  @isPartOf.as[String]
+                 </td>
+              </tr>
+            }
+          }
+        </tr>
+        
+        @*@produceRow("isPartOf", parsedContentDigital \ "isPartOf", (s:String) => Some(s))*@
     </table>
 }
 

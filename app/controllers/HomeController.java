@@ -28,7 +28,6 @@ import play.libs.Json;
 import play.libs.ws.WSClient;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.index;
 
 /**
  * This controller contains an action to handle HTTP requests to the
@@ -76,7 +75,7 @@ public class HomeController extends Controller {
 	 * @return Result
 	 */
 	public Result index() {
-		return ok(index.render(request().host().split(":")[0],
+		return ok(views.html.index.render(request().host().split(":")[0],
 				CONFIG.getString("index.http_port"), search("collection"),
 				search("title-print"), search("title-digital")));
 	}
@@ -104,14 +103,25 @@ public class HomeController extends Controller {
 	 */
 	public Result get(String id, String format) {
 		response().setHeader("Access-Control-Allow-Origin", "*");
-		GetResponse resultPrint =
-				client.prepareGet(indexName, "title-print", id).execute().actionGet();
+
+		id = id.substring(1, id.length());
+
+		String printId = "http://digitalisiertedrucke.de/resources/P" + id;
+		GetResponse resultPrint = client
+				.prepareGet(indexName, "title-print", printId).execute().actionGet();
 		JsonNode resultPrintAsJson = Json.parse(resultPrint.getSourceAsString());
 
+		System.out.println(resultPrint.getSourceAsString());
+
+		String digitalId = "http://digitalisiertedrucke.de/resources/D" + id;
 		GetResponse resultDigital =
-				client.prepareGet(indexName, "title-digital", id).execute().actionGet();
+				client.prepareGet(indexName, "title-digital", digitalId).execute()
+						.actionGet();
+
 		JsonNode resultDigitalAsJson =
 				Json.parse(resultDigital.getSourceAsString());
+
+		// JsonNode collection = resultDigitalAsJson.get("isPartOf");
 
 		return ok(
 				views.html.details.render(id, resultPrintAsJson, resultDigitalAsJson));
