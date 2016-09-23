@@ -64,11 +64,20 @@
 			<div class="grid">
 				<div>
 					<dl>
-					@for(item <- items) {
-						<dt>@((item \ "_source" \ "title").asOpt[String].getOrElse("--"))</dt>
-						@defining((item \ "_source" \ "id").asOpt[String].getOrElse("--")) { id =>
-						<dd><a href='@id.replace("digitalisiertedrucke.de", request().host())'>@id</a></dd>
+					@for(item <- items;
+					     id = (item \ "_source" \ "id").asOpt[String].getOrElse("--");
+					     title = (item \ "_source" \ "title").asOpt[String].getOrElse(id);
+					     fulltext = (item \ "_source" \ "fulltextOnline").asOpt[String].getOrElse("")) {
+						<dt>@title</dt>
+						<dd>
+						@if(!fulltext.isEmpty){
+						<a href='@id.replace("digitalisiertedrucke.de", request().host())'>Details</a>, 
+						<a href='@fulltext'>Volltext</a>
+						| <a title="Korrekten Volltext-Link melden" href='mailto:lobid-admin@@hbz-nrw.de?subject=Korrekter Volltext-Link für @id'>&#x270e;</a>
+						} else {
+							<a href='@id.replace("digitalisiertedrucke.de", request().host())'>@id</a>
 						}
+						</dd>
 					}
 					</dl>
 				</div>
