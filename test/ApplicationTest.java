@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import play.twirl.api.Content;
+import play.twirl.api.Html;
 
 /**
  *
@@ -23,7 +24,7 @@ public class ApplicationTest {
 	@Test
 	public void renderTemplate() {
 		Content html =
-				views.html.index.render("Your new application is ready.", "");
+				views.html.main.render("Your new application is ready.", new Html(""));
 		assertEquals("text/html", html.contentType());
 		assertTrue(html.body().contains("Your new application is ready."));
 	}

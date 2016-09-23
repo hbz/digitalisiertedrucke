@@ -36,7 +36,21 @@
 	}
 }
 
-@main(q) {
+@main("Digitalisierte Drucke") {
+	<div>
+		<p>
+		<form action="@routes.HomeController.search()" method="GET">
+			<input type="text" autocomplete="off" style="width: 500px;"
+				placeholder='Sammlungen und Titel suchen' autofocus name="q"
+				@if(q!=null && !q.isEmpty && q!="*" ) {value="@q"}>
+			<button type="submit">Suchen</button>
+		</form>
+		</p>
+	</div>
+	<p> Zeige alle @defining(routes.HomeController.search(q="*", t="collection")) {url => <a href="@url">Sammlungen</a>},
+			@defining(routes.HomeController.search(q="*", t="title-print")) {url => <a href="@url">gedruckte Titel</a>},
+			@defining(routes.HomeController.search(q="*", t="title-digital")) { url => <a href="@url">digitalisierte Titel</a>. }
+	</p>
 	@defining((Json.parse(json)\"hits"\"hits").as[Seq[JsValue]]) { items =>
 		@if(items.size > 1) {
 			<p>
@@ -65,7 +79,7 @@
 				</div>
 		</div>
 		} else {
-			<p>Keine Treffer.</p>
+			@if(!q.trim.isEmpty){<p>Keine Treffer.</p>}
 		}
 	}
 }

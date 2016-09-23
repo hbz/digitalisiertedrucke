@@ -20,3 +20,57 @@ dd {
 	flex-basis: 10em;
 	flex-grow: 1;
 }
+
+body {
+	background: #ffffff;
+	font-family: Verdana, Helvetica, Arial, Lucida, sans-serif;
+	font-size: 75%;
+	padding: 10px 0;
+	color: #00457b;
+}
+
+p {
+	padding: 0px;
+}
+
+table {
+	width: 100%;
+	margin-bottom: 0;
+	padding: 0px;
+}
+
+th, td {
+	padding: 10px;
+	text-align: center;
+}
+
+a {
+	color: #ff8208;
+	text-decoration: none;
+}
+
+a:focus, a:hover, a:active {
+	color: #00457b;
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+a.nav {
+	color: #000000;
+}
+
+.fl {
+	color: #BE1345;
+}
+
+.nav {
+	background-color: #e6e6e6;
+	padding: 5px;
+	text-align: left;
+}
+
+.nav_active {
+	background-color: #ffffff;
+	padding: 5px;
+	text-align: left;
+}

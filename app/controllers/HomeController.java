@@ -25,7 +25,6 @@ import play.inject.ApplicationLifecycle;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.index;
 
 /**
  * This controller contains an action to handle HTTP requests to the
@@ -62,16 +61,17 @@ public class HomeController extends Controller {
 	}
 
 	/**
-	 * An action that renders an HTML page with a welcome message. The
-	 * configuration in the <code>routes</code> file means that this method will
-	 * be called when the application receives a <code>GET</code> request with a
-	 * path of <code>/</code>.
-	 * 
-	 * @return Result
+	 * @return OK with contact information
 	 */
-	public Result index() {
-		return ok(index.render(request().host().split(":")[0],
-				CONFIG.getString("index.http_port")));
+	public Result contact() {
+		return ok(views.html.contact.render());
+	}
+
+	/**
+	 * @return OK with imprint information
+	 */
+	public Result imprint() {
+		return ok(views.html.imprint.render());
 	}
 
 	/**
