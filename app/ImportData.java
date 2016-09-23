@@ -91,7 +91,7 @@ public class ImportData {
 		JsonEncoder encoder = new JsonEncoder();
 		encoder.setPrettyPrinting(true);
 		JsonToElasticsearchBulk esBulk =
-				new JsonToElasticsearchBulk("elasticsearchId", type, INDEX_NAME);
+				new JsonToElasticsearchBulk("id", type, INDEX_NAME);
 		opener//
 				.setReceiver(new MarcXmlReader())//
 				.setReceiver(new Metamorph(morphDef))//

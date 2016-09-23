@@ -2,6 +2,8 @@
 
 @import play.api.libs.json._
 
+@main("Details") {
+
 @defining(Json.parse(contentPrint.toString())) { parsedContentPrint =>
     <h1>@((parsedContentPrint \ "title").asOpt[String].getOrElse(id))</h1>
     <h2>Print</h2>
@@ -64,6 +66,8 @@
         
         @*@produceRow("isPartOf", parsedContentDigital \ "isPartOf", (s:String) => Some(s))*@
     </table>
+}
+
 }
 
 @produceRow(name: String, value: JsLookupResult, link: String => Option[String]) = {

@@ -2,6 +2,8 @@
 
 @import play.api.libs.json._
 
+@main("Details") {
+
 @defining(Json.parse(content.toString())) { parsedContent =>
     <h1>@((parsedContent \ "title").asOpt[String].getOrElse(id))</h1>
     <h2>Collection</h2>
@@ -36,6 +38,7 @@
         </tr>
         
     </table>
+}
 }
 
 @produceRow(name: String, value: JsLookupResult, link: String => Option[String]) = {
