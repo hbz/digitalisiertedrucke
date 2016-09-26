@@ -1,0 +1,62 @@
+@(id: String, content: com.fasterxml.jackson.databind.JsonNode) 
+
+@import play.api.libs.json._
+
+@main("Details") {
+
+@defining(Json.parse(content.toString())) { parsedContent =>
+    <h1>@((parsedContent \ "title").asOpt[String].getOrElse(id))</h1>
+    <h2>Collection</h2>
+    <table class='table table-striped table-condensed'>
+        @produceRow("id", parsedContent \ "id", _ => None)
+        @produceRow("Umfang", parsedContent \ "extent", (s:String) => None)
+        @produceRow("Urheber -- Name", parsedContent \ "creator" \ "name", (s:String) => None)
+        @produceRow("Urheber -- URL", parsedContent \ "creator" \ "url", (s:String) => Some(s))
+        @produceRow("Sprache", parsedContent \ "language",_ => None)
+        @produceRow("isPartOf", parsedContent \ "isPartOf", (s:String) => Some(s))
+        @produceRow("Art", parsedContent \ "type", (s:String) => Some(s))
+        @produceRow("Weitere Titelinformation", parsedContent \ "otherTitleInformation", (s:String) => None)
+        @produceRow("isPrimaryTopicOf", parsedContent \ "isPrimaryTopicOf", (s:String) => Some(s))
+        @produceRow("Ort", parsedContent \ "spatial", (s:String) => None)
+        @produceRow("Homepage", parsedContent \ "homepage", (s:String) => Some(s))
+        <tr>
+          <td>Themen</td>
+          @for((subject, i) <- (parsedContent \ "subject").asOpt[Seq[JsValue]].getOrElse(Seq()).zipWithIndex) {
+            @if(i == 0) {          
+              <td>
+                @subject.as[String]
+              </td>
+            } else {
+              <tr>
+                <td></td>
+                <td>
+                  @subject.as[String]
+                 </td>
+              </tr>
+            }
+          }
+        </tr>
+        
+    </table>
+}
+
+}
+
+@produceRow(name: String, value: JsLookupResult, link: String => Option[String]) = {
+    @if(value.asOpt[JsValue].isDefined){
+        @defining(value.as[String].substring(0,value.as[String].length())) { valueAsString =>
+            <tr>
+                <td class="field-label">
+                    @name
+                </td>
+                <td class="field-value">
+                    @if(!link(valueAsString).isDefined) {
+                        @valueAsString
+                    } else {
+                        <a href="@valueAsString">@link(valueAsString).get</a>
+                    }
+                </td>
+            </tr>
+        }
+    }
+}

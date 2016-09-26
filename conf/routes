@@ -13,3 +13,6 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /                           controllers.HomeController.search(q ?= "", t ?= null, from: Int ?= 0, size: Int ?= 20, format ?= null)
 GET     /contact                    controllers.HomeController.contact()
 GET     /imprint                    controllers.HomeController.imprint()
+
+GET     /resources/:id              controllers.HomeController.getResource(id, format ?= null)
+GET     /collections/:id            controllers.HomeController.getCollection(id, format ?= null)
