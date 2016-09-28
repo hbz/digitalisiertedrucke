@@ -5,7 +5,7 @@
 @import play.api.libs.json._
 
 @links(buckets: Seq[JsValue], key: String) = {
-	@for(bucket <- buckets; term = (bucket \ "key").as[String]; count = (bucket \ "doc_count").as[Int]) {
+	@for(bucket <- buckets; term = (bucket \ "key").as[String]; if !home.label(term).isEmpty; count = (bucket \ "doc_count").as[Int]) {
 		@if(q.contains(key+":\""+term+"\"")){
 		@home.label(term)
 		<a href='@routes.HomeController.search()?from=@from&size=@size&q=@q.replace("AND "+key+":\""+term+"\"","").trim'>

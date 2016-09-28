@@ -199,6 +199,14 @@ public class HomeController extends Controller {
 	 * @return The label for the given key, or the key (if nothing was found)
 	 */
 	public String label(String key) {
+		String typeLabel =
+				(String) CONFIG.getObject("label.type").unwrapped().get(key);
+		if (typeLabel != null)
+			return typeLabel;
+		String mediumLabel =
+				(String) CONFIG.getObject("label.medium").unwrapped().get(key);
+		if (mediumLabel != null)
+			return mediumLabel;
 		String lookupKey = key.replace(".", "_");
 		try {
 			String response = node.client().prepareGet(indexName, DDC_TYPE, lookupKey)
