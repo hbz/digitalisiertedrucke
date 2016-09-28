@@ -45,7 +45,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
-import controllers.HomeController;
+import controllers.HomeController.TYPE;
 import play.Logger;
 import play.libs.Json;
 
@@ -76,10 +76,10 @@ public class ImportData {
 	public static void main(String[] args) throws IOException {
 		createEmptyIndex("conf/index-settings.json");
 		String inputFile = "conf/hbz_zvdd_resource_marc.xml.bz2";
-		indexTurtle(CONFIG.getString("index.ddc"), HomeController.DDC_TYPE);
-		importData(inputFile, "title-print");
-		importData(inputFile, "title-digital");
-		importData(inputFile, "collection");
+		indexTurtle(CONFIG.getString("index.ddc"), TYPE.DDC.id);
+		importData(inputFile, TYPE.TITLE_PRINT.id);
+		importData(inputFile, TYPE.TITLE_DIGITAL.id);
+		importData(inputFile, TYPE.COLLECTION.id);
 		NODE.close();
 		CLIENT.close();
 	}

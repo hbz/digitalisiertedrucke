@@ -45,8 +45,22 @@ public class HomeController extends Controller {
 	/** The application config. */
 	public static final Config CONFIG = ConfigFactory.load();
 
-	/** Elasticsearch type for DDC data. */
-	public static final String DDC_TYPE = "ddc";
+	/** Elasticsearch types. */
+	@SuppressWarnings("javadoc")
+	public static enum TYPE {
+		COLLECTION("collection"), //
+		TITLE_PRINT("title-print"), //
+		TITLE_DIGITAL("title-digital"), //
+		DDC("ddc");
+		public String id;
+
+		private TYPE(String t) {
+			this.id = t;
+		}
+	}
+
+	private static final String COLLECTIONS_PREFIX =
+			"http://digitalisiertedrucke.de/collections/";
 
 	private String indexName = CONFIG.getString("index.name");
 	private Settings settings = Settings.settingsBuilder()
@@ -152,14 +166,15 @@ public class HomeController extends Controller {
 
 		String printId =
 				"http://digitalisiertedrucke.de/resources/P" + normalizedId;
-		GetResponse resultPrint = client
-				.prepareGet(indexName, "title-print", printId).execute().actionGet();
+		GetResponse resultPrint =
+				client.prepareGet(indexName, TYPE.TITLE_PRINT.id, printId).execute()
+						.actionGet();
 		JsonNode resultPrintAsJson = Json.parse(resultPrint.getSourceAsString());
 
 		String digitalId =
 				"http://digitalisiertedrucke.de/resources/D" + normalizedId;
 		GetResponse resultDigital =
-				client.prepareGet(indexName, "title-digital", digitalId).execute()
+				client.prepareGet(indexName, TYPE.TITLE_DIGITAL.id, digitalId).execute()
 						.actionGet();
 
 		JsonNode resultDigitalAsJson =
@@ -173,9 +188,9 @@ public class HomeController extends Controller {
 
 	public Result getCollection(String id, String format) {
 		response().setHeader("Access-Control-Allow-Origin", "*");
-		String normalizedId = "http://digitalisiertedrucke.de/collections/" + id;
+		String normalizedId = COLLECTIONS_PREFIX + id;
 		GetResponse resultCollection =
-				client.prepareGet(indexName, "collection", normalizedId).execute()
+				client.prepareGet(indexName, TYPE.COLLECTION.id, normalizedId).execute()
 						.actionGet();
 		JsonNode resultCollectionAsJson =
 				Json.parse(resultCollection.getSourceAsString());
@@ -199,6 +214,12 @@ public class HomeController extends Controller {
 	 * @return The label for the given key, or the key (if nothing was found)
 	 */
 	public String label(String key) {
+		if (key.startsWith("http://dewey.info/class")) {
+			return ddcLookup(key);
+		}
+		if (key.startsWith(COLLECTIONS_PREFIX)) {
+			return collectionLookup(key);
+		}
 		String typeLabel =
 				(String) CONFIG.getObject("label.type").unwrapped().get(key);
 		if (typeLabel != null)
@@ -207,10 +228,15 @@ public class HomeController extends Controller {
 				(String) CONFIG.getObject("label.medium").unwrapped().get(key);
 		if (mediumLabel != null)
 			return mediumLabel;
+		return key;
+	}
+
+	private String ddcLookup(String key) {
 		String lookupKey = key.replace(".", "_");
 		try {
-			String response = node.client().prepareGet(indexName, DDC_TYPE, lookupKey)
-					.get().getSourceAsString();
+			String response =
+					node.client().prepareGet(indexName, TYPE.DDC.id, lookupKey).get()
+							.getSourceAsString();
 			if (response != null) {
 				String textValue = Json.parse(response)
 						.findValue("http://www_w3_org/2004/02/skos/core#prefLabel")
@@ -219,9 +245,25 @@ public class HomeController extends Controller {
 			}
 		} catch (Throwable t) {
 			Logger.error("Could not get data, index: {} type: {}, id: {} ({}: {})",
-					indexName, DDC_TYPE, lookupKey, t, t);
+					indexName, TYPE.DDC.id, lookupKey, t, t);
 		}
 		return key;
+	}
+
+	private String collectionLookup(String key) {
+		try {
+			String response =
+					node.client().prepareGet(indexName, TYPE.COLLECTION.id, key).get()
+							.getSourceAsString();
+			if (response != null) {
+				String textValue = Json.parse(response).findValue("title").textValue();
+				return textValue != null ? textValue : "";
+			}
+		} catch (Throwable t) {
+			Logger.error("Could not get data, index: {} type: {}, id: {} ({}: {})",
+					indexName, TYPE.COLLECTION.id, key, t, t);
+		}
+		return key.replace(COLLECTIONS_PREFIX, "");
 	}
 
 }
