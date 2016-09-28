@@ -1,18 +1,18 @@
 @* Copyright 2014-2016, hbz. Licensed under the Eclipse Public License 1.0 *@
 
-@(q: String, json: String, from: Int, size: Int)
+@(q: String, json: String, from: Int, size: Int, home: controllers.HomeController)
 
 @import play.api.libs.json._
 
 @links(buckets: Seq[JsValue], key: String) = {
 	@for(bucket <- buckets; term = (bucket \ "key").as[String]; count = (bucket \ "doc_count").as[Int]) {
 		@if(q.contains(key+":\""+term+"\"")){
-		@term
+		@home.label(term)
 		<a href='@routes.HomeController.search()?from=@from&size=@size&q=@q.replace("AND "+key+":\""+term+"\"","").trim'>
 		<span class="badge">Filter entfernen &otimes;</span>
 		</a>
 		} else {
-		<a href='@routes.HomeController.search()?from=@from&size=@size&q=@q.trim+AND+@key:"@term"'>@term (@count)</a>
+		<a href='@routes.HomeController.search()?from=@from&size=@size&q=@q.trim+AND+@key:"@term"'>@home.label(term) (@count)</a>
 		}<br/>
 	}
 }

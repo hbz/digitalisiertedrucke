@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
+import play.Logger;
 import play.inject.ApplicationLifecycle;
 import play.libs.Json;
 import play.libs.ws.WSClient;
@@ -43,6 +44,9 @@ public class HomeController extends Controller {
 
 	/** The application config. */
 	public static final Config CONFIG = ConfigFactory.load();
+
+	/** Elasticsearch type for DDC data. */
+	public static final String DDC_TYPE = "ddc";
 
 	private String indexName = CONFIG.getString("index.name");
 	private Settings settings = Settings.settingsBuilder()
@@ -95,7 +99,7 @@ public class HomeController extends Controller {
 			String searchResponse = search(q, t, from, size);
 			return format != null && format.equals("json")
 					? ok(Json.parse(searchResponse))
-					: ok(views.html.search.render(q, searchResponse, from, size));
+					: ok(views.html.search.render(q, searchResponse, from, size, this));
 		} catch (IllegalArgumentException x) {
 			x.printStackTrace();
 			return badRequest("Bad request: " + x.getMessage());
@@ -188,6 +192,28 @@ public class HomeController extends Controller {
 			x.printStackTrace();
 			return null;
 		}
+	}
+
+	/**
+	 * @param key The key too look up
+	 * @return The label for the given key, or the key (if nothing was found)
+	 */
+	public String label(String key) {
+		String lookupKey = key.replace(".", "_");
+		try {
+			String response = node.client().prepareGet(indexName, DDC_TYPE, lookupKey)
+					.get().getSourceAsString();
+			if (response != null) {
+				String textValue = Json.parse(response)
+						.findValue("http://www_w3_org/2004/02/skos/core#prefLabel")
+						.findValue("@value").textValue();
+				return textValue != null ? textValue : "";
+			}
+		} catch (Throwable t) {
+			Logger.error("Could not get data, index: {} type: {}, id: {} ({}: {})",
+					indexName, DDC_TYPE, lookupKey, t, t);
+		}
+		return key;
 	}
 
 }
