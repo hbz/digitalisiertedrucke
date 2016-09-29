@@ -20,7 +20,7 @@
 @facet(queryMetadata: JsValue, key: String) = {
 	@defining((key.replace('.','_'), (queryMetadata \ "aggregations" \ key \ "buckets").as[Seq[JsValue]])) { case (jsKey, buckets) =>
 		@if(!buckets.isEmpty) {
-		<h4>@key.split("\\.")(0).capitalize</h4>
+		<h4>@home.label(key.split("\\.")(0))</h4>
 		@links(buckets.take(5), key)
 		@if(buckets.size>5){
 			<a id='more-@jsKey-link' href="javascript:void(0);" onclick='document.getElementById("more-@jsKey").style.display = ""; document.getElementById("more-@jsKey-link").style.display = "none"; document.getElementById("less-@jsKey-link").style.display = "";'>

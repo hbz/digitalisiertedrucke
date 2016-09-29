@@ -220,6 +220,10 @@ public class HomeController extends Controller {
 		if (key.startsWith(COLLECTIONS_PREFIX)) {
 			return collectionLookup(key);
 		}
+		String fieldLabel =
+				(String) CONFIG.getObject("label.field").unwrapped().get(key);
+		if (fieldLabel != null)
+			return fieldLabel;
 		String typeLabel =
 				(String) CONFIG.getObject("label.type").unwrapped().get(key);
 		if (typeLabel != null)
