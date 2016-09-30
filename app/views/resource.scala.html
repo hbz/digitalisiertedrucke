@@ -8,13 +8,12 @@
     <h1>@((parsedContentPrint \ "title").asOpt[String].getOrElse(id))</h1>
     <h2>Print</h2>
     <table class='table table-striped table-condensed'>
-        @produceRow("hasFormat", parsedContentPrint \ "hasFormat", (s:String) => Some(s))
-        @produceRow("Medium", parsedContentPrint \ "medium", (s:String) => Some(s))
-        @produceRow("Bibliographische Angabe", parsedContentPrint \ "bibliographicCitation",_ => None)
-        @produceRow("Volltext", parsedContentPrint \ "fulltextOnline", (s:String) => Some(s))        
+        @produceRow(home.label("medium"), parsedContentPrint \ "medium", (s:String) => Some(s))
+        @produceRow(home.label("bibliographicCitation"), parsedContentPrint \ "bibliographicCitation",_ => None)
+        @produceRow(home.label("fulltextOnline"), parsedContentPrint \ "fulltextOnline", (s:String) => Some(s))
        
         <tr>
-          <td>Art</td>
+          <td>@home.label("resourceType")</td>
           @for((resourceType, i) <- (parsedContentPrint \ "type").asOpt[Seq[JsValue]].getOrElse(Seq()).zipWithIndex) {
             @if(i == 0) {          
               <td>
@@ -37,15 +36,14 @@
 @defining(Json.parse(contentDigital.toString())) { parsedContentDigital =>
     <h2>Digital</h2>
     <table class='table table-striped table-condensed'>
-        @produceRow("isFormatOf", parsedContentDigital \ "isFormatOf", (s:String) => Some(s))
-        @produceRow("erstellt", parsedContentDigital \ "created", _ => None)
-        @produceRow("publisher", parsedContentDigital \ "publisher",_ => None)
-        @produceRow("medium", parsedContentDigital \ "medium", (s:String) => Some(s))
-        @produceRow("Volltext", parsedContentDigital \ "fulltextOnline", (s:String) => Some(s))
-        @produceRow("Art", parsedContentDigital \ "type", (s:String) => Some(s))
+        @produceRow(home.label("created"), parsedContentDigital \ "created", _ => None)
+        @produceRow(home.label("publisher"), parsedContentDigital \ "publisher",_ => None)
+        @produceRow(home.label("medium"), parsedContentDigital \ "medium", (s:String) => Some(s))
+        @produceRow(home.label("fulltextOnline"), parsedContentDigital \ "fulltextOnline", (s:String) => Some(s))
+        @produceRow(home.label("type"), parsedContentDigital \ "type", (s:String) => Some(s))
         
         <tr>
-          <td>isPartOf</td>
+          <td>@home.label("isPartOf")</td>
           @for((isPartOf, i) <- (parsedContentDigital \ "isPartOf").asOpt[Seq[JsValue]].getOrElse(Seq()).zipWithIndex) {
             @if(i == 0) {          
               <td>

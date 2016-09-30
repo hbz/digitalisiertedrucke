@@ -7,17 +7,17 @@
 	    <h1>@((parsedContent \ "title").asOpt[String].getOrElse(id))</h1>
 	    <h2>Collection</h2>
 	    <table class='table table-striped table-condensed'>
-	        @produceRow("Umfang", parsedContent \ "extent", (s:String) => None)
-	        @produceRow("Urheber -- Name", parsedContent \ "creator" \ "name", (s:String) => None)
-	        @produceRow("Urheber -- URL", parsedContent \ "creator" \ "url", (s:String) => Some(s))
-	        @produceRow("Sprache", (parsedContent \ "language"), (s:String) => None)
-	        @produceRow("isPartOf", parsedContent \ "isPartOf", (s:String) => Some(s))
-	        @produceRow("Art", parsedContent \ "type", (s:String) => Some(s))
-	        @produceRow("Weitere Titelinformation", parsedContent \ "otherTitleInformation", (s:String) => None)
-	        @produceRow("isPrimaryTopicOf", parsedContent \ "isPrimaryTopicOf", (s:String) => Some(s))
-	        @produceRow("Ort", parsedContent \ "spatial", (s:String) => None)
-	        @produceRow("Homepage", parsedContent \ "homepage", (s:String) => Some(s))
-	        @produceRow("Themen", (parsedContent \ "subject"), (s:String) => Some(s))
+	        @produceRow(home.label("extent"), parsedContent \ "extent", (s:String) => None)
+	        @produceRow(home.label("creator") + " " + home.label("name"), parsedContent \ "creator" \ "name", (s:String) => None)
+	        @produceRow(home.label("creator") + " " + home.label("url"), parsedContent \ "creator" \ "url", (s:String) => Some(s))
+	        @produceRow(home.label("language"), (parsedContent \ "language"), (s:String) => None)
+	        @produceRow(home.label("isPartOf"), parsedContent \ "isPartOf", (s:String) => Some(s))
+	        @produceRow(home.label("type"), parsedContent \ "type", (s:String) => Some(s))
+	        @produceRow(home.label("otherTitleInformation"), parsedContent \ "otherTitleInformation", (s:String) => None)
+	        @produceRow(home.label("isPrimaryTopicOf"), parsedContent \ "isPrimaryTopicOf", (s:String) => Some(s))
+	        @produceRow(home.label("spatial"), parsedContent \ "spatial", (s:String) => None)
+	        @produceRow(home.label("homepage"), parsedContent \ "homepage", (s:String) => Some(s))
+	        @produceRow(home.label("subject"), (parsedContent \ "subject"), (s:String) => Some(s))
 	    </table>
 	}
 }
