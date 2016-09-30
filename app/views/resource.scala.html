@@ -13,17 +13,17 @@
         @produceRow(home.label("fulltextOnline"), parsedContentPrint \ "fulltextOnline", (s:String) => Some(s))
        
         <tr>
-          <td>@home.label("resourceType")</td>
+          <td>@home.label("type")</td>
           @for((resourceType, i) <- (parsedContentPrint \ "type").asOpt[Seq[JsValue]].getOrElse(Seq()).zipWithIndex) {
             @if(i == 0) {          
               <td>
-                @resourceType.as[String]
+                @home.label(resourceType.as[String])
               </td>
             } else {
               <tr>
                 <td></td>
                 <td>
-                  @resourceType.as[String]
+                  @home.label(resourceType.as[String])
                  </td>
               </tr>
             }
