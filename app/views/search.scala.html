@@ -37,6 +37,30 @@
 }
 
 @main("Digitalisierte Drucke") {
+	@if(q==null || q.isEmpty) {
+	<p>Die Daten aus diesem Angebot stehen vorübergehend nicht mehr zur Verfügung. In der Zwischenzeit raten wir zu einer Suche in der <a href="https://www.deutsche-digitale-bibliothek.de/">Deutsche Digitale Bibliothek</a> . Folgendes Suchfeld führt Sie direkt zur DDB.</p>
+	<table id="ddb" border="0" align="center">
+		<tr>
+			<td>
+				<a href="https://www.deutsche-digitale-bibliothek.de"><img src='@routes.Assets.versioned("images/ddb.png")' class="bigLogo" alt="Logo: Deutsche Digitale Bibliothek"/></a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<form action="https://www.deutsche-digitale-bibliothek.de/searchresults" method="get" role="search" id="form-search" >
+					<label><span>Suchtext-Feld</span></label>
+					<input type="search" class="query" name="query" value="" size="50"/>
+					<button type="submit">Suche</button>
+				</form>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="https://www.deutsche-digitale-bibliothek.de/advancedsearch" class="fl">Erweiterte Suche</a>
+			</td>
+		</tr>
+	</table>
+	} else {
 	<div>
 		<p>
 		<form action="@routes.HomeController.search()" method="GET">
@@ -90,5 +114,5 @@
 		} else {
 			@if(!q.trim.isEmpty){<p>Keine Treffer.</p>}
 		}
-	}
+	}}
 }

@@ -44,6 +44,11 @@ th, td {
 	text-align: left;
 }
 
+#ddb th, #ddb td {
+	padding: 10px;
+	text-align: center;
+}
+
 a {
 	color: #ff8208;
 	text-decoration: none;
