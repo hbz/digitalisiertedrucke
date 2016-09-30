@@ -1,14 +1,13 @@
-@(id: String, contentPrint: com.fasterxml.jackson.databind.JsonNode, contentDigital: com.fasterxml.jackson.databind.JsonNode) 
+@(id: String, contentPrint: com.fasterxml.jackson.databind.JsonNode, contentDigital: com.fasterxml.jackson.databind.JsonNode, home: controllers.HomeController)
 
 @import play.api.libs.json._
 
-@main("Details") {
+@main("Details: " + id) {
 
 @defining(Json.parse(contentPrint.toString())) { parsedContentPrint =>
     <h1>@((parsedContentPrint \ "title").asOpt[String].getOrElse(id))</h1>
     <h2>Print</h2>
     <table class='table table-striped table-condensed'>
-        @produceRow("id", parsedContentPrint \ "id", _ => None)
         @produceRow("hasFormat", parsedContentPrint \ "hasFormat", (s:String) => Some(s))
         @produceRow("Medium", parsedContentPrint \ "medium", (s:String) => Some(s))
         @produceRow("Bibliographische Angabe", parsedContentPrint \ "bibliographicCitation",_ => None)
@@ -38,7 +37,6 @@
 @defining(Json.parse(contentDigital.toString())) { parsedContentDigital =>
     <h2>Digital</h2>
     <table class='table table-striped table-condensed'>
-        @produceRow("id", parsedContentDigital \ "id", _ => None)
         @produceRow("isFormatOf", parsedContentDigital \ "isFormatOf", (s:String) => Some(s))
         @produceRow("erstellt", parsedContentDigital \ "created", _ => None)
         @produceRow("publisher", parsedContentDigital \ "publisher",_ => None)
@@ -51,20 +49,18 @@
           @for((isPartOf, i) <- (parsedContentDigital \ "isPartOf").asOpt[Seq[JsValue]].getOrElse(Seq()).zipWithIndex) {
             @if(i == 0) {          
               <td>
-                @isPartOf.as[String]
+                @home.label(isPartOf.as[String])
               </td>
             } else {
               <tr>
                 <td></td>
                 <td>
-                  @isPartOf.as[String]
+                  @home.label(isPartOf.as[String])
                  </td>
               </tr>
             }
           }
         </tr>
-        
-        @*@produceRow("isPartOf", parsedContentDigital \ "isPartOf", (s:String) => Some(s))*@
     </table>
 }
 
@@ -79,9 +75,9 @@
                 </td>
                 <td class="field-value">
                     @if(!link(valueAsString).isDefined) {
-                        @valueAsString
+                        @home.label(valueAsString)
                     } else {
-                        <a href="@valueAsString">@link(valueAsString).get</a>
+                        <a href="@valueAsString">@link(home.label(valueAsString)).get</a>
                     }
                 </td>
             </tr>

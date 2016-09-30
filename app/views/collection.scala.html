@@ -1,8 +1,8 @@
-@(id: String, content: com.fasterxml.jackson.databind.JsonNode) 
+@(id: String, content: com.fasterxml.jackson.databind.JsonNode, home: controllers.HomeController)
 
 @import play.api.libs.json._
 
-@main("Details") {
+@main("Details: " + id) {
 	@defining(Json.parse(content.toString())) { parsedContent =>
 	    <h1>@((parsedContent \ "title").asOpt[String].getOrElse(id))</h1>
 	    <h2>Collection</h2>
@@ -39,9 +39,9 @@
                 </td>
                 <td class="field-value">
                     @if(!link(valueAsString).isDefined) {
-                        @valueAsString
+                        @home.label(valueAsString)
                     } else {
-                        <a href="@valueAsString">@link(valueAsString).get</a>
+                        <a href="@valueAsString">@link(home.label(valueAsString)).get</a>
                     }
                 </td>
             </tr>
@@ -55,13 +55,13 @@
           @for((value, i) <- array.zipWithIndex) {
             @if(i == 0) {
               <td class="field-value">
-                @value.as[String]
+                @home.label(value.as[String])
               </td>
             } else {
               <tr>
                 <td class="field-value"></td>
                 <td class="field-value">
-                  @value.as[String]
+                  @home.label(value.as[String])
                  </td>
               </tr>
             }

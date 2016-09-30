@@ -183,7 +183,7 @@ public class HomeController extends Controller {
 		// JsonNode collection = resultDigitalAsJson.get("isPartOf");
 
 		return ok(views.html.resource.render(normalizedId, resultPrintAsJson,
-				resultDigitalAsJson));
+				resultDigitalAsJson, this));
 	}
 
 	public Result getCollection(String id, String format) {
@@ -195,7 +195,7 @@ public class HomeController extends Controller {
 		JsonNode resultCollectionAsJson =
 				Json.parse(resultCollection.getSourceAsString());
 
-		return ok(views.html.collection.render(id, resultCollectionAsJson));
+		return ok(views.html.collection.render(id, resultCollectionAsJson, this));
 
 	}
 
