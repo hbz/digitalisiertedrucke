@@ -67,18 +67,20 @@
 @produceRow(name: String, value: JsLookupResult, link: String => Option[String]) = {
     @if(value.asOpt[JsValue].isDefined){
         @defining(value.as[String].substring(0,value.as[String].length())) { valueAsString =>
-            <tr>
-                <td class="field-label">
-                    @name
-                </td>
-                <td class="field-value">
-                    @if(!link(valueAsString).isDefined) {
-                        @home.label(valueAsString)
-                    } else {
-                        <a href="@valueAsString">@link(home.label(valueAsString)).get</a>
-                    }
-                </td>
-            </tr>
+            @if(home.label(valueAsString) != "") {
+                <tr>
+                    <td class="field-label">
+                        @name
+                    </td>
+                    <td class="field-value">
+                        @if(!link(valueAsString).isDefined) {
+                            @home.label(valueAsString)
+                        } else {
+                            <a href="@valueAsString">@link(home.label(valueAsString)).get</a>
+                        }
+                    </td>
+                </tr>
+            }
         }
     }
 }
