@@ -182,6 +182,10 @@ public class HomeController extends Controller {
 
 		// JsonNode collection = resultDigitalAsJson.get("isPartOf");
 
+		if (format != null && format.equals("json")) {
+			boolean isPrintId = id.toLowerCase().charAt(0) == 'p';
+			return ok(isPrintId ? resultPrintAsJson : resultDigitalAsJson);
+		}
 		return ok(views.html.resource.render(normalizedId, resultPrintAsJson,
 				resultDigitalAsJson, this));
 	}
@@ -195,7 +199,8 @@ public class HomeController extends Controller {
 		JsonNode resultCollectionAsJson =
 				Json.parse(resultCollection.getSourceAsString());
 
-		return ok(views.html.collection.render(id, resultCollectionAsJson, this));
+		return format != null && format.equals("json") ? ok(resultCollectionAsJson) :
+				ok(views.html.collection.render(id, resultCollectionAsJson, this));
 
 	}
 
