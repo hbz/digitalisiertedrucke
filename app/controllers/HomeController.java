@@ -135,10 +135,7 @@ public class HomeController extends Controller {
 		}
 		searchRequest = withAggregations(searchRequest, FACETS);
 		SearchResponse searchResponse = searchRequest.execute().actionGet();
-		return size == 1
-				? Json.prettyPrint(
-						Json.parse(searchResponse.getHits().getAt(0).getSourceAsString()))
-				: Json.prettyPrint(Json.parse(searchResponse.toString()));
+		return Json.prettyPrint(Json.parse(searchResponse.toString()));
 	}
 
 	private static SearchRequestBuilder withAggregations(

@@ -52,7 +52,7 @@
 			@defining(routes.HomeController.search(q="*", t="title-digital")) { url => <a href="@url">digitalisierte Titel</a>. }
 	</p>
 	@defining((Json.parse(json)\"hits"\"hits").as[Seq[JsValue]]) { items =>
-		@if(items.size > 1) {
+		@if(items.size >= 1) {
 			<p>
 			@defining((Json.parse(json) \ "hits" \ "total").as[Int]) { totalResults =>
 				Treffer: @(totalResults) |
