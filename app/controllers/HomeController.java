@@ -121,8 +121,8 @@ public class HomeController extends Controller {
 	}
 
 	/** Facet fields. */
-	public static final String[] FACETS = { "type", "medium", "subject",
-			"temporal", "spatial", "created", "isPartOf" };
+	public static final String[] FACETS = { "language", "type", "medium",
+			"subject", "temporal", "spatial", "created", "isPartOf" };
 
 	private String search(String q, String type, int from, int size) {
 		client.admin().indices().refresh(new RefreshRequest()).actionGet();
@@ -232,6 +232,10 @@ public class HomeController extends Controller {
 				(String) CONFIG.getObject("label.medium").unwrapped().get(key);
 		if (mediumLabel != null)
 			return mediumLabel;
+		String languageLabel =
+				(String) CONFIG.getObject("label.language").unwrapped().get(key);
+		if (languageLabel != null)
+			return languageLabel;
 		return key;
 	}
 
