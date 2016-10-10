@@ -2,6 +2,8 @@
 
 @import play.api.libs.json._
 
+@localLink(link: String) = @{ link.replace("digitalisiertedrucke.de", request.host) }
+
 @main("Details: " + id) {
 
 @defining(Json.parse(contentPrint.toString())) { parsedContentPrint =>
@@ -47,13 +49,13 @@
           @for((isPartOf, i) <- (parsedContentDigital \ "isPartOf").asOpt[Seq[JsValue]].getOrElse(Seq()).zipWithIndex) {
             @if(i == 0) {          
               <td>
-                @home.label(isPartOf.as[String])
+                <a href='@localLink(isPartOf.as[String])'>@home.label(isPartOf.as[String])</a>
               </td>
             } else {
               <tr>
                 <td></td>
                 <td>
-                  @home.label(isPartOf.as[String])
+                  <a href='@localLink(isPartOf.as[String])'>@home.label(isPartOf.as[String])</a>
                  </td>
               </tr>
             }
