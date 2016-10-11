@@ -40,10 +40,14 @@
 	<div>
 		<p>
 		<form action="@routes.HomeController.search()" method="GET">
-			<input type="text" autocomplete="off" style="width: 500px;"
-				placeholder='Sammlungen und Titel durchsuchen' autofocus name="q"
-				@if(q!=null && !q.isEmpty && q!="*" ) {value="@q"}>
-			<button type="submit">Suchen</button>
+			<div class="search">
+				<button  type="submit">Suchen</button>
+				<span>
+					<input type="text" autocomplete="off"
+						placeholder='Sammlungen und Titel durchsuchen' autofocus name="q"
+						@if(q!=null && !q.isEmpty && q!="*" ) {value="@q"} />
+				</span>
+			</div>
 		</form>
 		</p>
 	</div>
