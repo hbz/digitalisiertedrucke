@@ -1,6 +1,6 @@
 @* Copyright 2014-2016, hbz. Licensed under the Eclipse Public License 1.0 *@
 
-@(q: String, json: String, from: Int, size: Int, home: controllers.HomeController)
+@(q: String, t: String, json: String, from: Int, size: Int, home: controllers.HomeController)
 
 @import play.api.libs.json._
 
@@ -52,7 +52,7 @@
 		</p>
 	</div>
 	@defining((Json.parse(json)\"hits"\"hits").as[Seq[JsValue]]) { items =>
-		@if(q == "*") {
+		@if(q == "*" && (t == null || t.isEmpty)) {
 			<div class="grid">
 				<div>@facet(Json.parse(json), "type")</div>
 				<div>@facet(Json.parse(json), "language")</div>
