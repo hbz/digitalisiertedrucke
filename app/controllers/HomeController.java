@@ -162,6 +162,9 @@ public class HomeController extends Controller {
 		GetResponse resultPrint =
 				client.prepareGet(indexName, TYPE.TITLE_PRINT.id, printId).execute()
 						.actionGet();
+		if (!resultPrint.isExists()) {
+			return notFound("Not found: " + printId);
+		}
 		JsonNode resultPrintAsJson = Json.parse(resultPrint.getSourceAsString());
 
 		String digitalId =
@@ -169,6 +172,9 @@ public class HomeController extends Controller {
 		GetResponse resultDigital =
 				client.prepareGet(indexName, TYPE.TITLE_DIGITAL.id, digitalId).execute()
 						.actionGet();
+		if (!resultDigital.isExists()) {
+			return notFound("Not found: " + digitalId);
+		}
 
 		JsonNode resultDigitalAsJson =
 				Json.parse(resultDigital.getSourceAsString());
@@ -195,6 +201,9 @@ public class HomeController extends Controller {
 		GetResponse resultCollection =
 				client.prepareGet(indexName, TYPE.COLLECTION.id, normalizedId).execute()
 						.actionGet();
+		if (!resultCollection.isExists()) {
+			return notFound("Not found: " + normalizedId);
+		}
 		JsonNode resultCollectionAsJson =
 				Json.parse(resultCollection.getSourceAsString());
 
