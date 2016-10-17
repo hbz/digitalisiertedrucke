@@ -102,7 +102,7 @@ public class HomeController extends Controller {
 
 	/**
 	 * @param q The search string
-	 * @param t Ther ES type (collection, title-print, title-digital)
+	 * @param t The ES type (collection, title-print, title-digital)
 	 * @param from From parameter for Elasticsearch query
 	 * @param size Size parameter for Elasitcsearch query
 	 * @param format The response format ('json' for JSON, else HTML)
@@ -113,7 +113,8 @@ public class HomeController extends Controller {
 			String searchResponse = search(q, t, from, size);
 			return format != null && format.equals("json")
 					? ok(searchResponse).as(JSON_CONTENT)
-					: ok(views.html.search.render(q, searchResponse, from, size, this));
+					: ok(
+							views.html.search.render(q, t, searchResponse, from, size, this));
 		} catch (IllegalArgumentException x) {
 			x.printStackTrace();
 			return badRequest("Bad request: " + x.getMessage());
@@ -131,7 +132,7 @@ public class HomeController extends Controller {
 				.setSearchType(SearchType.QUERY_THEN_FETCH).setQuery(simpleQuery)
 				.setFrom(from).setSize(size);
 		if (type != null) {
-			searchRequest = searchRequest.setTypes(type);
+			searchRequest = searchRequest.setTypes(type.split(","));
 		}
 		searchRequest = withAggregations(searchRequest, FACETS);
 		SearchResponse searchResponse = searchRequest.execute().actionGet();
@@ -154,7 +155,10 @@ public class HomeController extends Controller {
 	 */
 	public Result getResource(String id, String format) {
 		response().setHeader("Access-Control-Allow-Origin", "*");
-
+		if (id.equals("*")) {
+			return search(id, TYPE.TITLE_PRINT.id + "," + TYPE.TITLE_DIGITAL.id, 0,
+					20, format);
+		}
 		String normalizedId = id.substring(1, id.length());
 
 		String printId =
@@ -201,6 +205,9 @@ public class HomeController extends Controller {
 		GetResponse resultCollection =
 				client.prepareGet(indexName, TYPE.COLLECTION.id, normalizedId).execute()
 						.actionGet();
+		if (id.equals("*")) {
+			return search(id, TYPE.COLLECTION.id, 0, 20, format);
+		}
 		if (!resultCollection.isExists()) {
 			return notFound("Not found: " + normalizedId);
 		}
@@ -276,6 +283,14 @@ public class HomeController extends Controller {
 					indexName, TYPE.COLLECTION.id, key, t, t);
 		}
 		return key.replace(COLLECTIONS_PREFIX, "");
+	}
+
+	/**
+	 * @param path The path to redirect to
+	 * @return A 301 MOVED_PERMANENTLY redirect to the path
+	 */
+	public Result redirectPath(String path) {
+		return movedPermanently("/" + path);
 	}
 
 }

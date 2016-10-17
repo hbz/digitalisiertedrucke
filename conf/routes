@@ -2,6 +2,9 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# Handle trailing slashes
+GET     /*path/                     controllers.HomeController.redirectPath(path: String)
+
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
@@ -16,3 +19,6 @@ GET     /imprint                    controllers.HomeController.imprint()
 
 GET     /resources/:id              controllers.HomeController.getResource(id, format ?= null)
 GET     /collections/:id            controllers.HomeController.getCollection(id, format ?= null)
+
+GET     /resources                  controllers.HomeController.getResource(id = "*", format ?= null)
+GET     /collections                controllers.HomeController.getCollection(id = "*", format ?= null)
