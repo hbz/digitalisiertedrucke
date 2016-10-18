@@ -65,9 +65,9 @@
 				<p>
 				@defining((Json.parse(json) \ "hits" \ "total").as[Int]) { totalResults =>
 					Treffer: @(totalResults) |
-					@if(from > 0){<a href='@routes.HomeController.search(q=q, from=from-size)'>&LeftArrow; Vorige</a>}
+					@if(from > 0){<a href='@routes.HomeController.search(q=q, t=t, from=from-size, size=size)'>&LeftArrow; Vorige</a>}
 					@(from+1)&mdash;@(Math.min(totalResults, from+size))
-					@if(totalResults > from+size){<a href='@routes.HomeController.search(q=q, from=from+size)'>Nächste &RightArrow;</a>}
+					@if(totalResults > from+size){<a href='@routes.HomeController.search(q=q, t=t, from=from+size, size=size)'>Nächste &RightArrow;</a>}
 				}
 				</p>
 				<div class="grid">
