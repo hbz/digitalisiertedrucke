@@ -11,7 +11,7 @@ GET     /message                    controllers.AsyncController.message
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET     /robots.txt                 controllers.HomeController.robots()
 
-GET     /                           controllers.HomeController.search(q ?= "", t ?= null, from: Int ?= 0, size: Int ?= 20, format ?= null)
+GET     /                           controllers.HomeController.search(q ?= "*", t ?= null, from: Int ?= 0, size: Int ?= 20, format ?= null)
 GET     /contact                    controllers.HomeController.contact()
 GET     /imprint                    controllers.HomeController.imprint()
 
