@@ -20,7 +20,7 @@
 	        @produceRow(home, home.label("isPrimaryTopicOf"), parsedContent \ "isPrimaryTopicOf", (s:String) => Some(s))
 	        @produceRow(home, home.label("spatial"), parsedContent \ "spatial", (s:String) => None)
 	        @produceRow(home, home.label("homepage"), parsedContent \ "homepage", (s:String) => Some(s))
-	        @produceRow(home, home.label("subject"), (parsedContent \ "subject"), (s:String) => Some(s))
+	        @produceRow(home, home.label("subject"), (parsedContent \ "subject"), (s:String) => None)
 	    </table>
 	}
 
