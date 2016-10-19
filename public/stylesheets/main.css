@@ -24,7 +24,6 @@ dd {
 body {
 	background: #ffffff;
 	font-family: Verdana, Helvetica, Arial, Lucida, sans-serif;
-	font-size: 75%;
 	padding: 10px 0;
 	color: #00457b;
 }
@@ -35,13 +34,25 @@ p {
 
 table {
 	width: 100%;
-	margin-bottom: 0;
-	padding: 0px;
+	border-collapse: collapse;
+	border-bottom: 1px solid lightgray;
 }
 
 th, td {
-	padding: 10px;
+	padding: 5px;
 	text-align: left;
+}
+
+td.field-label {
+	width: 10%;
+}
+
+tr:nth-child(odd) {
+	background-color: #e6e6e6;
+}
+
+tr:nth-child(even) {
+	background-color: white;
 }
 
 a {
