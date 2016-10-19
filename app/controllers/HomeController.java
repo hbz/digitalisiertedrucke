@@ -19,10 +19,11 @@ import org.elasticsearch.node.Node;
 import org.elasticsearch.node.NodeBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.google.inject.Provider;
+
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
@@ -39,6 +40,8 @@ import play.mvc.Result;
  */
 @Singleton
 public class HomeController extends Controller {
+
+	private static final String JSON_CONTENT = "application/json; charset=utf-8";
 
 	@Inject
 	WSClient ws;
@@ -121,7 +124,7 @@ public class HomeController extends Controller {
 		try {
 			String searchResponse = search(q, t, from, size);
 			return format != null && format.equals("json")
-					? ok(Json.parse(searchResponse))
+					? ok(searchResponse).as(JSON_CONTENT)
 					: ok(views.html.search.render(q, searchResponse, from, size, this));
 		} catch (IllegalArgumentException x) {
 			x.printStackTrace();
@@ -144,10 +147,7 @@ public class HomeController extends Controller {
 		}
 		searchRequest = withAggregations(searchRequest, FACETS);
 		SearchResponse searchResponse = searchRequest.execute().actionGet();
-		return size == 1
-				? Json.prettyPrint(
-						Json.parse(searchResponse.getHits().getAt(0).getSourceAsString()))
-				: searchResponse.toString();
+		return Json.prettyPrint(Json.parse(searchResponse.toString()));
 	}
 
 	private static SearchRequestBuilder withAggregations(
@@ -160,13 +160,9 @@ public class HomeController extends Controller {
 	}
 
 	/**
-	 * Method to get a specific document by id, either rendered within a html view
-	 * or as plain Json.
-	 * 
-	 * @param id id of the document that is supposed to be returned
-	 * @param format specifies in which format the content shall be returned
-	 * @return either render a view, return the content as Json or report
-	 *         "not found"
+	 * @param id The id of the resource to be returned
+	 * @param format The response format ('json' for JSON, else HTML)
+	 * @return OK response with HTML or JSON
 	 */
 	public Result getResource(String id, String format) {
 		response().setHeader("Access-Control-Allow-Origin", "*");
@@ -191,10 +187,20 @@ public class HomeController extends Controller {
 
 		// JsonNode collection = resultDigitalAsJson.get("isPartOf");
 
+		if (format != null && format.equals("json")) {
+			boolean isPrintId = id.toLowerCase().charAt(0) == 'p';
+			return ok(isPrintId ? Json.prettyPrint(resultPrintAsJson)
+					: Json.prettyPrint(resultDigitalAsJson)).as(JSON_CONTENT);
+		}
 		return ok(views.html.resource.render(normalizedId, resultPrintAsJson,
 				resultDigitalAsJson, this));
 	}
 
+	/**
+	 * @param id The id of the collection to be returned
+	 * @param format The response format ('json' for JSON, else HTML)
+	 * @return OK response with HTML or JSON
+	 */
 	public Result getCollection(String id, String format) {
 		response().setHeader("Access-Control-Allow-Origin", "*");
 		String normalizedId = COLLECTIONS_PREFIX + id;
@@ -204,18 +210,10 @@ public class HomeController extends Controller {
 		JsonNode resultCollectionAsJson =
 				Json.parse(resultCollection.getSourceAsString());
 
-		return ok(views.html.collection.render(id, resultCollectionAsJson, this));
+		return format != null && format.equals("json")
+				? ok(Json.prettyPrint(resultCollectionAsJson)).as(JSON_CONTENT)
+				: ok(views.html.collection.render(id, resultCollectionAsJson, this));
 
-	}
-
-	private static String prettyJsonOk(JsonNode jsonNode) {
-		try {
-			return new ObjectMapper().writerWithDefaultPrettyPrinter()
-					.writeValueAsString(jsonNode);
-		} catch (JsonProcessingException x) {
-			x.printStackTrace();
-			return null;
-		}
 	}
 
 	/**
