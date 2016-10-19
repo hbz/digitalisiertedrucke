@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -24,6 +27,7 @@ import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.refresh.RefreshRequest;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.node.Node;
@@ -31,9 +35,17 @@ import org.elasticsearch.node.NodeBuilder;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.jsonldjava.core.JsonLdError;
+import com.github.jsonldjava.core.JsonLdOptions;
+import com.github.jsonldjava.core.JsonLdProcessor;
+import com.github.jsonldjava.jena.JenaRDFParser;
+import com.github.jsonldjava.utils.JSONUtils;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
+import controllers.HomeController.TYPE;
 import play.Logger;
 import play.libs.Json;
 
@@ -64,9 +76,10 @@ public class ImportData {
 	public static void main(String[] args) throws IOException {
 		createEmptyIndex("conf/index-settings.json");
 		String inputFile = "conf/hbz_zvdd_resource_marc.xml.bz2";
-		importData(inputFile, "title-print");
-		importData(inputFile, "title-digital");
-		importData(inputFile, "collection");
+		indexTurtle(CONFIG.getString("index.ddc"), TYPE.DDC.id);
+		importData(inputFile, TYPE.TITLE_PRINT.id);
+		importData(inputFile, TYPE.TITLE_DIGITAL.id);
+		importData(inputFile, TYPE.COLLECTION.id);
 		NODE.close();
 		CLIENT.close();
 	}
@@ -80,6 +93,47 @@ public class ImportData {
 		indexData(destination, type);
 		Logger.info("Indexed from '{}' to index '{}', type '{}'", //
 				destination, INDEX_NAME, type);
+	}
+
+	private static void indexTurtle(String dataUrl, String type) {
+		Logger.debug("Indexing from dataUrl: {}, type: {}, index: {}, client {}",
+				dataUrl, type, INDEX_NAME, CLIENT);
+		final BulkRequestBuilder bulkRequest = CLIENT.prepareBulk();
+		try {
+			List<String> jsonLd = toJsonLd(new URL(dataUrl));
+			for (String concept : jsonLd) {
+				String id = Json.parse(concept).findValue("@id").textValue();
+				IndexRequestBuilder indexRequest =
+						CLIENT.prepareIndex(INDEX_NAME, type, id).setSource(concept);
+				bulkRequest.add(indexRequest);
+			}
+		} catch (MalformedURLException e) {
+			Logger.error("Could not index data", e);
+		}
+		BulkResponse response = bulkRequest.execute().actionGet();
+		if (response.hasFailures()) {
+			Logger.info("Indexing response: {}", response.buildFailureMessage());
+		}
+	}
+
+	/**
+	 * @param turtleUrl The URL of the RDF in TURTLE format
+	 * @return The input, converted to JSON-LD, or null
+	 */
+	public static List<String> toJsonLd(final URL turtleUrl) {
+		final Model model = ModelFactory.createDefaultModel();
+		try {
+			model.read(turtleUrl.openStream(), null, "TURTLE");
+			final JenaRDFParser parser = new JenaRDFParser();
+			Object json = JsonLdProcessor.fromRDF(model, new JsonLdOptions(), parser);
+			List<Object> list = JsonLdProcessor.expand(json);
+			return list.subList(1, list.size()).stream()
+					.map(o -> JSONUtils.toString(o).replace(".", "_"))
+					.collect(Collectors.toList());
+		} catch (JsonLdError | IOException e) {
+			Logger.error("Could not convert to JSON-LD", e);
+		}
+		return null;
 	}
 
 	private static void transform(String inputFile, String type,

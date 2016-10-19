@@ -11,10 +11,12 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
   "org.culturegraph" % "metafacture-core" % "4.0.0-HBZ-SNAPSHOT",
-  "org.apache.jena" % "jena-arq" % "2.10.1",
   "org.elasticsearch" % "elasticsearch" % "2.3.4",
   "net.java.dev.jna" % "jna" % "4.1.0",
-  "com.github.spullara.mustache.java" % "compiler" % "0.8.13"
+  "com.github.spullara.mustache.java" % "compiler" % "0.8.13",
+  "com.github.jsonld-java" % "jsonld-java" % "0.3",
+  "com.github.jsonld-java" % "jsonld-java-jena" % "0.3",
+  "org.apache.jena" % "jena-arq" % "2.9.3"
 )
 
 // Java project. Don't expect Scala IDE:

@@ -1,31 +1,31 @@
-@(id: String, contentPrint: com.fasterxml.jackson.databind.JsonNode, contentDigital: com.fasterxml.jackson.databind.JsonNode) 
+@(id: String, contentPrint: com.fasterxml.jackson.databind.JsonNode, contentDigital: com.fasterxml.jackson.databind.JsonNode, home: controllers.HomeController)
 
 @import play.api.libs.json._
 
-@main("Details") {
+@localLink(link: String) = @{ link.replace("digitalisiertedrucke.de", request.host) }
+
+@main("Details: " + id) {
 
 @defining(Json.parse(contentPrint.toString())) { parsedContentPrint =>
     <h1>@Html((parsedContentPrint \ "title").asOpt[String].getOrElse(id))</h1>
     <h2>Print</h2>
     <table class='table table-striped table-condensed'>
-        @produceRow("id", parsedContentPrint \ "id", _ => None)
-        @produceRow("hasFormat", parsedContentPrint \ "hasFormat", (s:String) => Some(s))
-        @produceRow("Medium", parsedContentPrint \ "medium", (s:String) => Some(s))
-        @produceRow("Bibliographische Angabe", parsedContentPrint \ "bibliographicCitation",_ => None)
-        @produceRow("Volltext", parsedContentPrint \ "fulltextOnline", (s:String) => Some(s))        
+        @produceRow(home.label("medium"), parsedContentPrint \ "medium", (s:String) => Some(s))
+        @produceRow(home.label("bibliographicCitation"), parsedContentPrint \ "bibliographicCitation",_ => None)
+        @produceRow(home.label("fulltextOnline"), parsedContentPrint \ "fulltextOnline", (s:String) => Some(s))
        
         <tr>
-          <td>Art</td>
+          <td>@home.label("type")</td>
           @for((resourceType, i) <- (parsedContentPrint \ "type").asOpt[Seq[JsValue]].getOrElse(Seq()).zipWithIndex) {
             @if(i == 0) {          
               <td>
-                @resourceType.as[String]
+                @home.label(resourceType.as[String])
               </td>
             } else {
               <tr>
                 <td></td>
                 <td>
-                  @resourceType.as[String]
+                  @home.label(resourceType.as[String])
                  </td>
               </tr>
             }
@@ -38,33 +38,29 @@
 @defining(Json.parse(contentDigital.toString())) { parsedContentDigital =>
     <h2>Digital</h2>
     <table class='table table-striped table-condensed'>
-        @produceRow("id", parsedContentDigital \ "id", _ => None)
-        @produceRow("isFormatOf", parsedContentDigital \ "isFormatOf", (s:String) => Some(s))
-        @produceRow("erstellt", parsedContentDigital \ "created", _ => None)
-        @produceRow("publisher", parsedContentDigital \ "publisher",_ => None)
-        @produceRow("medium", parsedContentDigital \ "medium", (s:String) => Some(s))
-        @produceRow("Volltext", parsedContentDigital \ "fulltextOnline", (s:String) => Some(s))
-        @produceRow("Art", parsedContentDigital \ "type", (s:String) => Some(s))
+        @produceRow(home.label("created"), parsedContentDigital \ "created", _ => None)
+        @produceRow(home.label("publisher"), parsedContentDigital \ "publisher",_ => None)
+        @produceRow(home.label("medium"), parsedContentDigital \ "medium", (s:String) => Some(s))
+        @produceRow(home.label("fulltextOnline"), parsedContentDigital \ "fulltextOnline", (s:String) => Some(s))
+        @produceRow(home.label("type"), parsedContentDigital \ "type", (s:String) => Some(s))
         
         <tr>
-          <td>isPartOf</td>
+          <td>@home.label("isPartOf")</td>
           @for((isPartOf, i) <- (parsedContentDigital \ "isPartOf").asOpt[Seq[JsValue]].getOrElse(Seq()).zipWithIndex) {
             @if(i == 0) {          
               <td>
-                @isPartOf.as[String]
+                <a href='@localLink(isPartOf.as[String])'>@home.label(isPartOf.as[String])</a>
               </td>
             } else {
               <tr>
                 <td></td>
                 <td>
-                  @isPartOf.as[String]
+                  <a href='@localLink(isPartOf.as[String])'>@home.label(isPartOf.as[String])</a>
                  </td>
               </tr>
             }
           }
         </tr>
-        
-        @*@produceRow("isPartOf", parsedContentDigital \ "isPartOf", (s:String) => Some(s))*@
     </table>
 }
 
@@ -73,18 +69,20 @@
 @produceRow(name: String, value: JsLookupResult, link: String => Option[String]) = {
     @if(value.asOpt[JsValue].isDefined){
         @defining(value.as[String].substring(0,value.as[String].length())) { valueAsString =>
-            <tr>
-                <td class="field-label">
-                    @name
-                </td>
-                <td class="field-value">
-                    @if(!link(valueAsString).isDefined) {
-                        @valueAsString
-                    } else {
-                        <a href="@valueAsString">@link(valueAsString).get</a>
-                    }
-                </td>
-            </tr>
+            @if(home.label(valueAsString) != "") {
+                <tr>
+                    <td class="field-label">
+                        @name
+                    </td>
+                    <td class="field-value">
+                        @if(!link(valueAsString).isDefined) {
+                            @home.label(valueAsString)
+                        } else {
+                            <a href="@valueAsString">@link(home.label(valueAsString)).get</a>
+                        }
+                    </td>
+                </tr>
+            }
         }
     }
 }
