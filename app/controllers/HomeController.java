@@ -22,6 +22,7 @@ import org.elasticsearch.search.aggregations.AggregationBuilders;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Provider;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
@@ -66,6 +67,14 @@ public class HomeController extends Controller {
 			client.close();
 			return CompletableFuture.completedFuture(null);
 		});
+	}
+
+	@Inject
+	private Provider<play.Application> app;
+
+	/** @return The robots.txt */
+	public Result robots() {
+		return ok(app.get().resourceAsStream("robots.txt")).as("text/plain");
 	}
 
 	/**
