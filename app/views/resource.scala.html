@@ -3,10 +3,12 @@
 @import play.api.libs.json._
 @import tags._
 
-@main("Details: " + id) {
-
 @defining((Json.parse(contentPrint.toString()), Json.parse(contentDigital.toString()))) { case (parsedContentPrint,parsedContentDigital) =>
-    <h1>@Html((parsedContentPrint \ "title").asOpt[String].getOrElse(id))
+
+@defining(Html((parsedContentPrint \ "title").asOpt[String].getOrElse(id))) { title =>
+
+@main(title.toString) {
+    <h1>@title
     <small><a href='@((parsedContentDigital \ "fulltextOnline").asOpt[String].getOrElse((parsedContentDigital \ "fulltextOnline").as[Seq[JsValue]].head.asOpt[String].getOrElse("#")))'>
       @home.label("fulltextOnline")</a> | <a title="Korrekten Volltext-Link melden" href='mailto:lobid-admin@@hbz-nrw.de?subject=Korrekter Volltext-Link für @id'>&#x270e;
     </a></small></h1>
@@ -20,4 +22,4 @@
     </table>
 }
 
-}
+}}
