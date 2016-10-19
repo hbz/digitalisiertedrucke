@@ -1,0 +1,52 @@
+@(home: controllers.HomeController, name: String, value: play.api.libs.json.JsReadable, link: String => Option[String])
+
+@import play.api.libs.json._
+
+@if(value.asOpt[Seq[JsValue]].isDefined){
+	@produceMultipleRows(name, value.asOpt[Seq[JsValue]].getOrElse(Seq()))
+} else {
+	@produceSingleRow(name, value.asInstanceOf[JsLookupResult], link)
+}
+
+@fieldValue(s: String) = {
+	@if(!link(s).isDefined) {
+		@home.label(s)
+	} else {
+		<a href="@s">@link(home.label(s)).get</a>
+	}
+}
+
+@produceSingleRow(name: String, value: JsLookupResult, link: String => Option[String]) = {
+	@if(value.asOpt[String].isDefined && !home.label(value.as[String]).isEmpty){
+		@defining(value.as[String]) { valueAsString =>
+			<tr>
+				<td class="field-label">
+					@name
+				</td>
+				<td class="field-value">
+					@fieldValue(valueAsString)
+				</td>
+			</tr>
+		}
+	}
+}
+
+@produceMultipleRows(displayName: String, array: Seq[JsValue]) = {
+	<tr>
+		<td class="field-label">@displayName</td>
+			@for((value, i) <- array.zipWithIndex; if value.asOpt[String].isDefined && !home.label(value.as[String]).isEmpty) {
+				@if(i == 0) {
+					<td class="field-value">
+						@fieldValue(value.as[String])
+					</td>
+				} else {
+					<tr>
+						<td class="field-value"></td>
+						<td class="field-value">
+							@fieldValue(value.as[String])
+						</td>
+					</tr>
+				}
+			}
+	</tr>
+}
