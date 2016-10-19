@@ -51,7 +51,6 @@ a {
 
 a:focus, a:hover, a:active {
 	color: #00457b;
-	font-weight: normal;
 	text-decoration: underline;
 }
 
