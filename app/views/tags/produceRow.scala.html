@@ -8,11 +8,13 @@
 	@produceSingleRow(name, value.asInstanceOf[JsLookupResult], link)
 }
 
+@localLink(link: String) = @{ link.replace("digitalisiertedrucke.de", request.host) }
+
 @fieldValue(s: String) = {
 	@if(!link(s).isDefined) {
 		@home.label(s)
 	} else {
-		<a href="@s">@link(home.label(s)).get</a>
+		<a href="@localLink(s)">@link(home.label(s)).get</a>
 	}
 }
 

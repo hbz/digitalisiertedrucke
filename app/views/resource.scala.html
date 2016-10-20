@@ -3,31 +3,24 @@
 @import play.api.libs.json._
 @import tags._
 
-@localLink(link: String) = @{ link.replace("digitalisiertedrucke.de", request.host) }
+@defining((Json.parse(contentPrint.toString()), Json.parse(contentDigital.toString()))) { case (parsedContentPrint,parsedContentDigital) =>
 
-@main("Details: " + id) {
+@defining(Html((parsedContentPrint \ "title").asOpt[String].getOrElse(id))) { title =>
 
-@defining(Json.parse(contentPrint.toString())) { parsedContentPrint =>
-    <h1>@Html((parsedContentPrint \ "title").asOpt[String].getOrElse(id))</h1>
-    <h2>Print</h2>
-    <table class='table table-striped table-condensed'>
-        @produceRow(home, home.label("medium"), parsedContentPrint \ "medium", (s:String) => Some(s))
+@main(title.toString) {
+    <h1>@title
+    <small><a href='@((parsedContentDigital \ "fulltextOnline").asOpt[String].getOrElse((parsedContentDigital \ "fulltextOnline").as[Seq[JsValue]].head.asOpt[String].getOrElse("#")))'>
+      @home.label("fulltextOnline")</a> | <a title="Korrekten Volltext-Link melden" href='mailto:lobid-admin@@hbz-nrw.de?subject=Korrekter Volltext-Link für @id'>&#x270e;
+    </a></small></h1>
+    <table>
+        @produceRow(home, home.label("creator"), parsedContentPrint \ "creator" \ "name",_ => None)
         @produceRow(home, home.label("bibliographicCitation"), parsedContentPrint \ "bibliographicCitation",_ => None)
-        @produceRow(home, home.label("fulltextOnline"), parsedContentPrint \ "fulltextOnline", (s:String) => Some(s))
         @produceRow(home, home.label("type"), parsedContentPrint \ "type", (s:String) => None)
-    </table>
-}
-
-@defining(Json.parse(contentDigital.toString())) { parsedContentDigital =>
-    <h2>Digital</h2>
-    <table class='table table-striped table-condensed'>
         @produceRow(home, home.label("created"), parsedContentDigital \ "created", _ => None)
         @produceRow(home, home.label("publisher"), parsedContentDigital \ "publisher",_ => None)
-        @produceRow(home, home.label("medium"), parsedContentDigital \ "medium", (s:String) => Some(s))
         @produceRow(home, home.label("fulltextOnline"), parsedContentDigital \ "fulltextOnline", (s:String) => Some(s))
-        @produceRow(home, home.label("type"), parsedContentDigital \ "type", (s:String) => Some(s))
         @produceRow(home, home.label("isPartOf"), parsedContentDigital \ "isPartOf", (s:String) => Some(s))
     </table>
 }
 
-}
+}}
