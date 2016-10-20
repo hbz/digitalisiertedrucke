@@ -13,6 +13,7 @@
       @home.label("fulltextOnline")</a> | <a title="Korrekten Volltext-Link melden" href='mailto:lobid-admin@@hbz-nrw.de?subject=Korrekter Volltext-Link für @id'>&#x270e;
     </a></small></h1>
     <table>
+        @produceRow(home, home.label("creator"), parsedContentPrint \ "creator" \ "name",_ => None)
         @produceRow(home, home.label("bibliographicCitation"), parsedContentPrint \ "bibliographicCitation",_ => None)
         @produceRow(home, home.label("type"), parsedContentPrint \ "type", (s:String) => None)
         @produceRow(home, home.label("created"), parsedContentDigital \ "created", _ => None)
