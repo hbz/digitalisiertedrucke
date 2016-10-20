@@ -10,17 +10,17 @@
 @main(title.toString) {
 	    <h1>@title</h1>
 	    <table>
-	        @produceRow(home, home.label("extent"), parsedContent \ "extent", (s:String) => None)
-	        @produceRow(home, home.label("creator") + " " + home.label("name"), parsedContent \ "creator" \ "name", (s:String) => None)
-	        @produceRow(home, home.label("creator") + " " + home.label("url"), parsedContent \ "creator" \ "url", (s:String) => Some(s))
-	        @produceRow(home, home.label("language"), (parsedContent \ "language"), (s:String) => None)
-	        @produceRow(home, home.label("isPartOf"), parsedContent \ "isPartOf", (s:String) => Some(s))
-	        @produceRow(home, home.label("type"), parsedContent \ "type", (s:String) => Some(s))
 	        @produceRow(home, home.label("otherTitleInformation"), parsedContent \ "otherTitleInformation", (s:String) => None)
-	        @produceRow(home, home.label("isPrimaryTopicOf"), parsedContent \ "isPrimaryTopicOf", (s:String) => Some(s))
-	        @produceRow(home, home.label("spatial"), parsedContent \ "spatial", (s:String) => None)
+	        @produceRow(home, home.label("creator"), parsedContent \ "creator" \ "name", (s:String) => None)
+	        @produceRow(home, "", parsedContent \ "creator" \ "url", (s:String) => Some(s))
 	        @produceRow(home, home.label("homepage"), parsedContent \ "homepage", (s:String) => Some(s))
+	        @produceRow(home, home.label("type"), parsedContent \ "type", (s:String) => Some(s))
+	        @produceRow(home, home.label("extent"), parsedContent \ "extent", (s:String) => None)
+	        @produceRow(home, home.label("language"), (parsedContent \ "language"), (s:String) => None)
+	        @produceRow(home, home.label("spatial"), parsedContent \ "spatial", (s:String) => None)
 	        @produceRow(home, home.label("subject"), (parsedContent \ "subject"), (s:String) => None)
+	        @produceRow(home, home.label("isPrimaryTopicOf"), parsedContent \ "isPrimaryTopicOf", (s:String) => Some(s))
+	         @produceRow(home, home.label("isPartOf"), parsedContent \ "isPartOf", (s:String) => Some(s))
 	    </table>
 	}
 
