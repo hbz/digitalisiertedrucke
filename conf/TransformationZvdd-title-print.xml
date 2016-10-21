@@ -41,6 +41,9 @@
 							<cgxml:literal name="a" value="576 S."/>
 						</cgxml:entity>
 					</cgxml:record>
+					<cgxml:record id="2">
+						<cgxml:literal name="008" value="091104 1868                             "/>
+					</cgxml:record>
 				</cgxml:records>
 			</cgxml:cgxml>
 		</input>
@@ -67,6 +70,9 @@
 						<cgxml:entity name="creator">
 							<cgxml:literal name="name" value="Falke, Jakob"/>
 						</cgxml:entity>
+					</cgxml:record>
+					<cgxml:record id="2">
+						<cgxml:literal name="issued" value="1868"/>
 					</cgxml:record>
 				</cgxml:records>
 			</cgxml:cgxml>
