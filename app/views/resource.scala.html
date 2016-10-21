@@ -18,6 +18,7 @@
         @produceRow(home, home.label("type"), parsedContentPrint \ "type", (s:String) => None)
         @produceRow(home, home.label("issued"), parsedContentPrint \ "issued", _ => None)
         @produceRow(home, home.label("created"), parsedContentDigital \ "created", _ => None)
+        @produceRow(home, home.label("extent"), parsedContentPrint \ "extent", _ => None)
         @produceRow(home, home.label("publisher"), parsedContentDigital \ "publisher",_ => None)
         @produceRow(home, home.label("fulltextOnline"), parsedContentDigital \ "fulltextOnline", (s:String) => Some(s))
         @produceRow(home, home.label("isPartOf"), parsedContentDigital \ "isPartOf", (s:String) => Some(s))

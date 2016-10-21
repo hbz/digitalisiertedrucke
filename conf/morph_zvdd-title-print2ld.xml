@@ -44,6 +44,7 @@
 				</data>
 				<data source="24500.b" name="alternative"/>
 				<data source="260  .c" name="issued"/>
+				<data source="300  .a" name="extent"/>
 				<data source="594  .a" name="type">
 						<regexp match="(Beitrag|title:article)" format="http://purl.org/ontology/bibo/Article"/>
 				</data>
