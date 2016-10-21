@@ -16,6 +16,7 @@
         @produceRow(home, home.label("creator"), parsedContentPrint \ "creator" \ "name",_ => None)
         @produceRow(home, home.label("bibliographicCitation"), parsedContentPrint \ "bibliographicCitation",_ => None)
         @produceRow(home, home.label("type"), parsedContentPrint \ "type", (s:String) => None)
+        @produceRow(home, home.label("issued"), parsedContentPrint \ "issued", _ => None)
         @produceRow(home, home.label("created"), parsedContentDigital \ "created", _ => None)
         @produceRow(home, home.label("publisher"), parsedContentDigital \ "publisher",_ => None)
         @produceRow(home, home.label("fulltextOnline"), parsedContentDigital \ "fulltextOnline", (s:String) => Some(s))

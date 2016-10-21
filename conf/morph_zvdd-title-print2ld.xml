@@ -43,11 +43,7 @@
 						<replace pattern="\s*\n+\s*" with=" "/>
 				</data>
 				<data source="24500.b" name="alternative"/>
-				<data source="260  .c" name="issued">
-						<!-- One processing example: pick out first valid year: -->
-						<replace pattern="\[.+\]" with=""/>
-						<regexp match="(1\d{3}|200\d)" format="${1}"/>
-				</data>
+				<data source="260  .c" name="issued"/>
 				<data source="594  .a" name="type">
 						<regexp match="(Beitrag|title:article)" format="http://purl.org/ontology/bibo/Article"/>
 				</data>
