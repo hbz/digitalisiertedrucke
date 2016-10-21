@@ -37,7 +37,10 @@
 				</data>
 				<!-- TODO: If target a pdf, serve file via HTTP accept header -->
 				<data source="8564 .u" name="fulltextOnline"/>
-				<data source="533  .c" name="publisher"/>
+				<combine name="publisher" value="${agency} ${place}">
+					<data source="533  .c" name="agency"/>
+					<data source="533  .b" name="place"/>
+				</combine>
 				<data source="533  .d" name="created"/>
 				<!-- Leave all other fields untransformed: <data source="_else"/> -->
 		</rules>
