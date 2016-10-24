@@ -8,6 +8,9 @@
 				<cgxml:records>
 					<cgxml:record id="1">
 						<cgxml:literal name="001" value="anything"/>
+						<cgxml:entity name="992  ">
+							<cgxml:literal name="a" value="collection:anything"/>
+						</cgxml:entity>
 						<cgxml:entity name="0248 ">
 							<cgxml:literal name="p" value="ddc:111"/>
 						</cgxml:entity>
@@ -20,7 +23,7 @@
 			<cgxml:cgxml version="1.0">
 				<cgxml:records>
 					<cgxml:record id="1">
-						<cgxml:literal name="isPartOf" value="http://digitalisiertedrucke.de/collections"/>
+						<cgxml:literal name="id" value="http://digitalisiertedrucke.de/collections/anything"/>
 						<cgxml:literal name="type"
 							value="http://purl.org/dc/dcmitype/Collection"/>
 						<cgxml:literal name="subject" value="http://dewey.info/class/111/"/>

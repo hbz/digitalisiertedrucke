@@ -3,15 +3,26 @@
 	version="1">
 	<rules>
 		<!-- General attributes for each record: -->
-		<data source="992  .a" name="id">
-			<regexp match="collection:(.*\..*)" format="http://digitalisiertedrucke.de/collections/${1}"/><!-- some sanitizing -->
-		</data>
-		<data source="001" name="isPartOf"> <!-- the same as in zvdd-title -->
-			<constant value="http://digitalisiertedrucke.de/collections"/>
-		</data>
-		<data source="001" name="type">
-			<constant value="http://purl.org/dc/dcmitype/Collection"/>
-		</data>
+		<combine name="id" value="${id}">
+			<if>
+				<data source="992  .a">
+					<regexp match="collection.*"/>
+				</data>
+			</if>
+			<data source="001" name="id">
+				<regexp match="(.*)" format="http://digitalisiertedrucke.de/collections/${0}"/>
+			</data>
+		</combine>
+		<combine name="type" value="${collection}">
+			<if>
+				<data source="992  .a">
+					<regexp match="collection.*"/>
+				</data>
+			</if>
+			<data source="001" name="collection">
+				<constant value="http://purl.org/dc/dcmitype/Collection"/>
+			</data>
+		</combine>
 		<data source="0248 .p" name="subject">
 			<regexp match="ddc:(\d{3})" format="http://dewey.info/class/${1}/"/>
 		</data>

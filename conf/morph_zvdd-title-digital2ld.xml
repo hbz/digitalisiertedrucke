@@ -17,24 +17,16 @@
 				</data>
 				<!-- <data source="0248 .p" name="@http://purl.org/dc/terms/isPartOf"> <regexp match="collection:(.*)" 
 						format="${1}"/> </data> -->
-				<data source="0248 .p" name="isPartOf">
-						<equals string="collection:exilzeitschriften.d-nb.f.de"/>
-						<constant value="http://digitalisiertedrucke.de/collections/exil-zeitschriften.ddb.f.de"/>
-				</data>
-				<data source="0248 .p" name="isPartOf">
-						<equals string="collection:juedische_periodika.d-nb.f.de"/>
-						<constant value="http://digitalisiertedrucke.de/collections/juedische_periodika.ddb.f.de"/>
-				</data>
-				<data source="0248 .p" name="isPartOf">
-						<equals string="collection:verteilte_rechtsquellen.d-nb.f.de"/>
-						<constant value="http://digitalisiertedrucke.de/collections/verteilte_rechtsquellen.ddb.f.de"/>
-				</data>
-				<data source="0248 .p" name="isPartOf">
-						<not-equals string="collection:exilzeitschriften.d-nb.f.de"/>
-						<not-equals string="collection:juedische_periodika.d-nb.f.de"/>
-						<not-equals string="collection:verteilte_rechtsquellen.d-nb.f.de"/>
-						<regexp match="collection:(.*)" format="http://digitalisiertedrucke.de/collections/${1}"/>
-				</data>
+				<combine name="isPartOf" value="${collection}" sameEntity="true">
+					<if>
+						<data source="0248 .p">
+							<regexp match="collection(.*)" />
+						</data>
+					</if>
+					<data source="0248 .a" name="collection">
+						<regexp match="oai:digitalisiertedrucke\.de:(.*)" format="http://digitalisiertedrucke.de/collections/${1}"/>
+					</data>
+				</combine>
 				<!-- TODO: If target a pdf, serve file via HTTP accept header -->
 				<data source="8564 .u" name="fulltextOnline"/>
 				<combine name="publisher" value="${agency} ${place}">

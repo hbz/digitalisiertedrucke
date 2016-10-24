@@ -281,17 +281,18 @@ public class HomeController extends Controller {
 	}
 
 	private String collectionLookup(String key) {
+		String response = null;
 		try {
-			String response =
-					node.client().prepareGet(indexName, TYPE.COLLECTION.id, key).get()
-							.getSourceAsString();
+			response = node.client().prepareGet(indexName, TYPE.COLLECTION.id, key)
+					.get().getSourceAsString();
 			if (response != null) {
-				String textValue = Json.parse(response).findValue("title").textValue();
-				return textValue != null ? textValue : "";
+				JsonNode text = Json.parse(response).findValue("title");
+				return text != null && text.textValue() != null ? text.textValue() : "";
 			}
 		} catch (Throwable t) {
-			Logger.error("Could not get data, index: {} type: {}, id: {} ({}: {})",
-					indexName, TYPE.COLLECTION.id, key, t, t);
+			Logger.error(
+					"Could not get data, index: {} type: {}, id: {} ({}: {}). response: {}",
+					indexName, TYPE.COLLECTION.id, key, t, t, response);
 		}
 		return key.replace(COLLECTIONS_PREFIX, "");
 	}
