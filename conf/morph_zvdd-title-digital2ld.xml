@@ -30,6 +30,10 @@
 						<constant value="http://digitalisiertedrucke.de/collections/verteilte_rechtsquellen.ddb.f.de"/>
 				</data>
 				<data source="0248 .p" name="isPartOf">
+					<equals string="collection:einblattdrucke_vd17.gbv.goe.de"/>
+					<constant value="http://digitalisiertedrucke.de/collections/einblattdrucke.vd17.oo.de"/>
+				</data>
+				<data source="0248 .p" name="isPartOf">
 						<not-equals string="collection:exilzeitschriften.d-nb.f.de"/>
 						<not-equals string="collection:juedische_periodika.d-nb.f.de"/>
 						<not-equals string="collection:verteilte_rechtsquellen.d-nb.f.de"/>
