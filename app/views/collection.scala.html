@@ -8,7 +8,7 @@
 @defining(Html((parsedContent \ "title").asOpt[String].getOrElse(id))) { title =>
 
 @main(title.toString) {
-	    <h1>@title</h1>
+	    <h1>@title<br/><small><a href='@routes.HomeController.search(q="isPartOf:" + id)'>Enthaltene Titel anzeigen</a></small></h1>
 	    <table>
 	        @produceRow(home, home.label("otherTitleInformation"), parsedContent \ "otherTitleInformation", (s:String) => None)
 	        @produceRow(home, home.label("creator"), parsedContent \ "creator" \ "name", (s:String) => None)
