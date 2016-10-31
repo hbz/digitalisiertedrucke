@@ -40,6 +40,7 @@ import com.github.jsonldjava.core.JsonLdOptions;
 import com.github.jsonldjava.core.JsonLdProcessor;
 import com.github.jsonldjava.jena.JenaRDFParser;
 import com.github.jsonldjava.utils.JSONUtils;
+import com.google.common.base.Charsets;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.typesafe.config.Config;
@@ -80,6 +81,8 @@ public class ImportData {
 		importData(inputFile, TYPE.TITLE_PRINT.id);
 		importData(inputFile, TYPE.TITLE_DIGITAL.id);
 		importData(inputFile, TYPE.COLLECTION.id);
+		importMissing("conf/missing_collections.json",
+				TYPE.COLLECTION.id, "test/missing-collections_out.jsonl");
 		NODE.close();
 		CLIENT.close();
 	}
@@ -92,6 +95,22 @@ public class ImportData {
 				type, inputFile, destination);
 		indexData(destination, type);
 		Logger.info("Indexed from '{}' to index '{}', type '{}'", //
+				destination, INDEX_NAME, type);
+	}
+
+	static void importMissing(String missingDataLocation, String type,
+			String destination) throws IOException {
+		byte[] missingBytes = Files.readAllBytes(Paths.get(missingDataLocation));
+		JsonNode missingJson = Json.parse(new String(missingBytes, Charsets.UTF_8));
+		JsonToElasticsearchBulk esBulk =
+				new JsonToElasticsearchBulk("id", type, INDEX_NAME);
+		esBulk.setReceiver(new ObjectWriter<>(destination));
+		for (JsonNode node : missingJson) {
+			esBulk.process(node.toString());
+		}
+		esBulk.closeStream();
+		indexData(destination, type);
+		Logger.info("Indexed missing from '{}' to index '{}', type '{}'", //
 				destination, INDEX_NAME, type);
 	}
 
