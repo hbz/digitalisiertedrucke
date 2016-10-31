@@ -47,6 +47,10 @@
 					<data source="533  .b" name="place"/>
 				</combine>
 				<data source="533  .d" name="created"/>
+				<data source="24500.a" name="title">
+						<!-- Strip newlines with surrounding space: -->
+						<replace pattern="\s*\n+\s*" with=" "/>
+				</data>
 				<!-- Leave all other fields untransformed: <data source="_else"/> -->
 		</rules>
 		<!-- Nice to have, using map lookup instead of regex . Whats missing, now: if no entry was found, the to be looked up key should be used as value
