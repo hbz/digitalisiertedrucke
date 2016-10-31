@@ -58,7 +58,7 @@
 						<cgxml:literal name="medium" value="http://rdaregistry.info/termList/RDAproductionMethod/1010"/>
 						<cgxml:literal name="fulltextOnline" value="http://digi.ub.uni-heidelberg.de/diglit/falke1873"/>
 						<cgxml:literal name="title" value="Kunst und Kunstgewerbe auf der Wiener Weltausstellung 1873"/>
-						<cgxml:literal name="issued" value="07.04.1873[nach dem 07.04.1873]"/>
+						<cgxml:literal name="issued" value="1873"/>
 						<cgxml:literal name="language" value="http://id.loc.gov/vocabulary/iso639-2/ger"/>
 						<cgxml:literal name="language" value="http://id.loc.gov/vocabulary/iso639-2/lat"/>
 						<cgxml:literal name="language" value="http://id.loc.gov/vocabulary/iso639-2/fre"/>
