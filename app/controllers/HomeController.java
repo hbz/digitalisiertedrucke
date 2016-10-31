@@ -225,8 +225,8 @@ public class HomeController extends Controller {
 		GetResponse resultCollection =
 				client.prepareGet(indexName, TYPE.COLLECTION.id, normalizedId).execute()
 						.actionGet();
-		if (id.equals("*")) {
-			return search(id, TYPE.COLLECTION.id, 0, 20, format);
+		if (id.equals("*") || id.equals("zvdd.hbz.k.de")) {
+			return search("*", TYPE.COLLECTION.id, 0, 20, format);
 		}
 		if (!resultCollection.isExists()) {
 			return notFound("Not found: " + normalizedId);
