@@ -42,7 +42,7 @@
       "homepage":"http://library.fes.de/sozmon/"
    },
    {
-      "id":"http://digitalisiertedrucke.de/collections/digitale_sammlungen.uni.bn.de ",
+      "id":"http://digitalisiertedrucke.de/collections/digitale_sammlungen.uni.bn.de",
       "type": "http://purl.org/dc/dcmitype/Collection",
       "isPartOf": "http://digitalisiertedrucke.de/collections",
       "creator":{
