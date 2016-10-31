@@ -161,6 +161,14 @@ public class HomeController extends Controller {
 
 	/**
 	 * @param id The id of the resource to be returned
+	 * @return 301 moved permanently redirect to the resource
+	 */
+	public Result getRecord(String id) {
+		return movedPermanently(routes.HomeController.getResource(id, null));
+	}
+
+	/**
+	 * @param id The id of the resource to be returned
 	 * @param format The response format ('json' for JSON, else HTML)
 	 * @return OK response with HTML or JSON
 	 */
@@ -170,7 +178,8 @@ public class HomeController extends Controller {
 			return search(id, TYPE.TITLE_PRINT.id + "," + TYPE.TITLE_DIGITAL.id, 0,
 					20, format);
 		}
-		String normalizedId = id.substring(1, id.length());
+		String normalizedId = (id.startsWith("P") || id.startsWith("D"))
+				? id.substring(1, id.length()) : id;
 
 		String printId =
 				"http://digitalisiertedrucke.de/resources/P" + normalizedId;

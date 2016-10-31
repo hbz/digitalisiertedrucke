@@ -18,6 +18,8 @@ GET     /                           controllers.HomeController.search(q ?= "*", 
 GET     /contact                    controllers.HomeController.contact()
 GET     /imprint                    controllers.HomeController.imprint()
 
+GET     /record/:id                 controllers.HomeController.getRecord(id)
+
 GET     /resources/:id              controllers.HomeController.getResource(id, format ?= null)
 GET     /collections/:id            controllers.HomeController.getCollection(id, format ?= null)
 
