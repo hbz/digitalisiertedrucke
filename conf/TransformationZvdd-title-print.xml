@@ -37,6 +37,12 @@
 						<cgxml:entity name="594  ">
 							<cgxml:literal name="a" value="title:serial"/>
 						</cgxml:entity>
+						<cgxml:entity name="300  ">
+							<cgxml:literal name="a" value="576 S."/>
+						</cgxml:entity>
+					</cgxml:record>
+					<cgxml:record id="2">
+						<cgxml:literal name="008" value="091104 1868                             "/>
 					</cgxml:record>
 				</cgxml:records>
 			</cgxml:cgxml>
@@ -60,9 +66,13 @@
 						<cgxml:literal name="type" value="http://purl.org/ontology/bibo/Article"/>
 						<cgxml:literal name="type" value="http://purl.org/ontology/bibo/Book"/>
 						<cgxml:literal name="type" value="http://purl.org/ontology/bibo/Series"/>
+						<cgxml:literal name="extent" value="576 S."/>
 						<cgxml:entity name="creator">
 							<cgxml:literal name="name" value="Falke, Jakob"/>
 						</cgxml:entity>
+					</cgxml:record>
+					<cgxml:record id="2">
+						<cgxml:literal name="issued" value="1868"/>
 					</cgxml:record>
 				</cgxml:records>
 			</cgxml:cgxml>

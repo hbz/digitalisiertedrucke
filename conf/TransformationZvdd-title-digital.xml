@@ -27,7 +27,8 @@
 							<cgxml:literal name="u" value="some.value"/>
 						</cgxml:entity>
 						<cgxml:entity name="533  ">
-							<cgxml:literal name="c" value="some.value"/>
+							<cgxml:literal name="c" value="some.agency"/>
+							<cgxml:literal name="b" value="some.place"/>
 						</cgxml:entity>
 						<cgxml:entity name="533  ">
 							<cgxml:literal name="d" value="some.value"/>
@@ -51,7 +52,7 @@
 						<cgxml:literal name="isPartOf" value="http://digitalisiertedrucke.de/collections/sonst.was.schönes"/>
 						<cgxml:literal name="isPartOf" value="http://digitalisiertedrucke.de/collections/zvdd.hbz.k.de"/>
 						<cgxml:literal name="fulltextOnline" value="some.value"/>
-						<cgxml:literal name="publisher" value="some.value"/>
+						<cgxml:literal name="publisher" value="some.agency some.place"/>
 						<cgxml:literal name="created" value="some.value"/>
 					</cgxml:record>
 				</cgxml:records>
