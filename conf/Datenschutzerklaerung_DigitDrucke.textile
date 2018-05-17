@@ -364,8 +364,8 @@ verarbeitung nach Art. 6 Abs. 1 lit. f DSGVO.
 
 h3. 5.4 Dauer der Speicherung
 
-*37* Im Falle der Speicherung der Daten in Logfiles ist dies nach spätestens sieben
-Tagen der Fall. Eine darüber hinausgehende Speicherung ist möglich. In diesem
+*37* In Logfiles werden personenbezogene Daten maximal sieben Tage gespeichert und 
+danach gelöscht. Eine darüber hinausgehende Speicherung ist möglich. In diesem
 Fall werden die IP-Adressen der Nutzer gelöscht oder verfremdet, sodass eine
 Zuordnung des aufrufenden Clients nicht mehr möglich ist.
 
