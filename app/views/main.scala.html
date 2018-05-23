@@ -26,6 +26,7 @@ to insert into the body of the page. *@
 			<td @if(request().path().equals(routes.HomeController.search().toString())){class="nav_active"}else{class="nav"} width="23%"><a href="@routes.HomeController.search()">Recherche</a></td>
 			<td @if(request().path().equals(routes.HomeController.contact().toString())){class="nav_active"}else{class="nav"} width="23%"><a href="@routes.HomeController.contact()">Ansprechpersonen</a></td>
 			<td @if(request().path().equals(routes.HomeController.imprint().toString())){class="nav_active"}else{class="nav"} class="nav" width="23%"><a href="@routes.HomeController.imprint()">Impressum</a></td>
+			<td class="nav" width="23%"><a href="https://github.com/hbz/digitalisiertedrucke/blob/master/conf/Datenschutzerklaerung_DigitDrucke.textile">Datenschutz</a></td>
 			<td class="nav" width="23%">&nbsp;</td>
 		</tr>
 	</table>
