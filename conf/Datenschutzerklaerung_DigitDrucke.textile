@@ -337,6 +337,7 @@ Daten und Informationen vom Computersystem des aufrufenden Rechners.
 Folgende Daten werden hierbei erhoben:
 * Informationen über den Browsertyp und die verwendete Version
 * Das Betriebssystem des Nutzers
+* Der Gerättyp (Desktop, Smartphone, Tablet etc.).
 * Die IP-Adresse des Nutzers
 * Datum und Uhrzeit des Zugriffs
 * Websites, von denen das System des Nutzers auf unsere Internetseite gelangt 
@@ -447,19 +448,73 @@ sich über die E-Mail-Adresse "semweb@hbz-nrw.de(E-Mail Linked Open Data)":mailt
 Wege zur Kontaktaufnahme finden sich unter "http://lobid.org/team(lobid-Teamseite)":http://lobid.org/team.
 Die Daten werden vorrangig bearbeitet.
 
-h2. 8. Links zu anderen Webseiten
+h2. 8. Webanalyse durch matomo
 
-*51* Unser Online-Angebot enthält Links zu anderen Websites. Wir haben keinen
+h3. 8.1 Umfang der Verarbeitung personenbezogener Daten
+
+*51* Wir nutzen das Open-Source-Software-Tool matomo zur Analyse des Surfverhaltens 
+unserer Nutzer auf den lobid-Seiten. Dafür werten wir unsere Logdateien aus, die 
+bei Aktivität des Nutzers mit folgenden Daten befüllt werden:
+* Die aufgerufene Webseite
+* Die Website, von der der Nutzer auf die aufgerufene Webseite gelangt ist (Referrer).
+* Die Häufigkeit des Aufrufs der Webseite.
+* Das Betriebssystem.
+* Der verwendete Browser.
+* Der Gerättyp (Desktop, Smartphone, Tablet etc.).
+* Gespeicherte Suchanfragen.
+* Anhand der IP geschätzter Aufenthaltsort.
+* Die Software läuft dabei ausschließlich auf den Servern unserer Webseite. Eine
+Speicherung der personenbezogenen Daten der Nutzer findet nur dort statt. Eine
+Weitergabe der Daten an Dritte erfolgt nicht.
+* Die Software ist so eingestellt, dass die IP-Adressen nicht vollständig
+gespeichert werden, sondern die letzten zwei Zahlen der IP-Adresse maskiert
+werden (Bsp.: 192.168.xxx.xxx). Auf diese Weise ist eine Zuordnung der gekürzten
+IP-Adresse zum aufrufenden Rechner nicht mehr möglich.
+
+h3. 8.2 Rechtsgrundlage für die Verarbeitung personenbezogener Daten
+
+*52* Rechtsgrundlage für die Verarbeitung der personenbezogenen Daten der Nutzer
+ist Art. 6 Abs. 1 lit. f DSGVO.
+
+h3. 8.3 Zweck der Datenverarbeitung
+
+*53* Die Verarbeitung der personenbezogenen Daten der Nutzer ermöglicht uns eine
+Analyse des Surfverhaltens unserer Nutzer. Wir sind in durch die Auswertung der
+gewonnen Daten in der Lage, Informationen über die Nutzung der einzelnen
+Komponenten unserer Webseite zusammenzustellen. Dies hilft uns dabei unsere
+Webseite und deren Nutzerfreundlichkeit stetig zu verbessern. In diesen Zwecken
+liegt auch unser berechtigtes Interesse in der Verarbeitung der Daten nach
+Art. 6 Abs. 1 lit. f DSGVO. Durch die Anonymisierung der IP-Adresse wird dem
+Interesse der Nutzer an deren Schutz personenbezogener Daten hinreichend Rechnung
+getragen.
+
+h3. 8.4 Dauer der Speicherung
+
+*54* Die nicht anonymisierten Daten werden gelöscht, sobald sie für unsere
+Aufzeichnungszwecke nicht mehr benötigt werden. In unserem Fall ist dies nach 7
+Tagen der Fall. Anonymisierte Daten werden zum Zwecke der Verbesserung der
+Nutzerfreundlichkeit nicht gelöscht.
+
+h3. 8.5 Widerspruchs- und Beseitigungsmöglichkeit
+
+*55* Die Erfassung der Daten findet automatisch statt. Die nicht anoynmisierten
+Daten werden nach 7 Tagen gelöscht, anonymisierte Daten werden nicht gelöscht,
+da sie keiner Person mehr zuordbar sind.
+
+h2. 9. Links zu anderen Webseiten
+
+*56* Unser Online-Angebot enthält Links zu anderen Websites. Wir haben keinen
 Einfluss darauf, dass deren Betreiber die Datenschutzbestimmungen einhalten.
 
-h2. 9. Datensicherheit
+h2. 10. Datensicherheit
 
-*52* Die verarbeiteten Daten sind innerhalb des hbz-Rechenzentrums gespeichert, zu
+*57* Die verarbeiteten Daten sind innerhalb des hbz-Rechenzentrums gespeichert, zu
 welchem nur ein beschränkter Mitarbeiterkreis Zutritt hat. Da es öffentlich
 zugängliche Daten sind, werden diese weiterverbreitet.
 
-h2. 10. Aktualität und Änderung dieser Datenschutzerklärung
+h2. 11. Aktualität und Änderung dieser Datenschutzerklärung
 
 |Version|Datum|Beschreibung|
 |0.1|15.05.2018|Der erste Entwurf.|
 |1.0|22.05.2018|Erste offizielle Fassung.|
+|1.1|24.05.2018|Abschnitt matomo hinzugefügt.|
