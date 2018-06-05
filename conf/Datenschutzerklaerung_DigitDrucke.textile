@@ -1,4 +1,4 @@
-h1. Datenschutzerklärung Digitalisierte Drucke – Stand 24.05.2018
+h1. Datenschutzerklärung Digitalisierte Drucke – Stand 05.06.2018
 
 Wir freuen uns sehr über Ihr Interesse an unserer Einrichtung. Unsere Datenschutz-
 erklärung dient zu Ihrer Information, ob und zu welchem Zweck personenbezogene
@@ -349,7 +349,7 @@ Nutzers findet nicht statt.
 h3. 5.2 Rechtsgrundlage für die Datenverarbeitung 
 
 *34* Rechtsgrundlage für die vorübergehende Speicherung der Daten und der Logfiles
-ist Art. 6 Abs. 1 lit. e und f DSGVO.
+ist Art. 6 Abs. 1 lit. f DSGVO.
 
 h3. 5.3 Zweck der Datenverarbeitung
 
@@ -426,14 +426,14 @@ verarbeitet, die von Bibliothekaren als Urheber eines Werks angesehen wurden
 h3. 7.2 Rechtsgrundlage für die Verarbeitung personenbezogenen Daten
 
 *47* Rechtsgrundlage für die Verarbeitung personenbezogener Daten ist Art. 6 
-Abs. 1 lit. e DSGVO. 
+Abs. 1 lit. f DSGVO. 
 
 h3. 7.3 Zweck der Datenverarbeitung
 
 *48* Die Verarbeitung der personenbezogenen Daten dient dazu, Werke unterscheiden
 und finden zu können. Die Autoren hatten höchst wahrscheinlich bei der 
 Veröffentlichung das Interesse im Zusammenhang mit dem Werk genannt zu werden.
-In diesem Zweck liegt auch unser berechtigtes Interesse nach Art. 6 Abs. 1 lit. e DSGVO.
+In diesem Zweck liegt auch unser berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO.
 
 h3. 7.4 Dauer der Speicherung
 
@@ -518,3 +518,4 @@ h2. 11. Aktualität und Änderung dieser Datenschutzerklärung
 |0.1|15.05.2018|Der erste Entwurf.|
 |1.0|22.05.2018|Erste offizielle Fassung.|
 |1.1|24.05.2018|Abschnitt matomo hinzugefügt.|
+|1.2|05.06.2018|Aktualisierung Paragraphen.|
