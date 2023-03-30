@@ -9,3 +9,4 @@ logs
 test/stats*.csv
 test/*_out.*
 data
+monit_start.log
