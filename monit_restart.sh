@@ -25,6 +25,7 @@ HOME="/home/sol"
 
 # it is important to set the proper locale
 . $HOME/.locale
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 JAVA_OPTS=$(echo "$JAVA_OPTS" |sed 's#,#\ #g')
 
 cd $HOME/git/$REPO
@@ -34,7 +35,9 @@ case $ACTION in
 			kill $(cat target/universal/stage/RUNNING_PID)
 			rm target/universal/stage/RUNNING_PID
 		fi
-		JAVA_OPTS="$JAVA_OPTS -XX:+ExitOnOutOfMemoryError" sbt "start $PORT" > monit_start.log
+		sbt clean
+		sbt --java-home $JAVA_HOME stage
+		JAVA_OPTS="$JAVA_OPTS -XX:+ExitOnOutOfMemoryError" ./target/universal/stage/bin/digitalisiertedrucke -Dhttp.port=$PORT -no-version-check > monit_start.log &
 		;;
 	stop)
 		if [ -f target/universal/stage/RUNNING_PID ]; then
