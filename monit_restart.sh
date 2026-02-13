@@ -35,9 +35,7 @@ case $ACTION in
 			kill $(cat target/universal/stage/RUNNING_PID)
 			rm target/universal/stage/RUNNING_PID
 		fi
-		sbt clean
-		sbt --java-home $JAVA_HOME stage
-		JAVA_OPTS="$JAVA_OPTS -XX:+ExitOnOutOfMemoryError" ./target/universal/stage/bin/digitalisiertedrucke -Dhttp.port=$PORT -no-version-check > monit_start.log &
+		JAVA_OPTS="$JAVA_OPTS -XX:+ExitOnOutOfMemoryError -XX:+HeapDumpOnOutOfMemoryError" sbt --java-home $JAVA_HOME "start $PORT" > monit_start.log
 		;;
 	stop)
 		if [ -f target/universal/stage/RUNNING_PID ]; then
